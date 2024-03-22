@@ -928,3 +928,181 @@ a:focus {
   color: inherit;
 }
 /*# sourceMappingURL=style.css.map */
+
+.form-container {
+  max-width: 500px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.map-container {
+  max-width: 700px;
+  /* margin-top: 50px; */
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#successMessage {
+  margin-top: 20px;
+  text-align: center;
+  display: none;
+  color: #28a745;
+  font-weight: bold;
+}
+
+/* Responsive styles */
+.map-responsive {
+  overflow:hidden;
+  padding-bottom:56.25%;
+  position:relative;
+  height:0;
+}
+.map-responsive iframe {
+  left:0;
+  top:0;
+  height:100%;
+  width:100%;
+  position:absolute;
+}
+
+/* Custom CSS */
+@media (min-width: 768px) {
+  .map-container {
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .container {
+    margin-top: 50px;
+  }
+}
+/*style for contact and map container*/
+
+/* form css*/
+.contact_section {
+  background-color: blue;
+}
+
+.contact_section .container-fluid {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.contact_section .heading_container h2 {
+  color: #ffffff;
+  font-size: 38px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.contact_section .form_container {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.contact_section .form_container input[type="text"],
+.contact_section .form_container input[type="email"] {
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  border: none;
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+}
+
+.contact_section .form_container input[type="text"]::placeholder,
+.contact_section .form_container input[type="email"]::placeholder {
+  color: #333;
+}
+
+.contact_section .form_container .message-box {
+  height: 150px;
+}
+
+.contact_section .form_container button {
+  background: #8e1efc;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contact_section .map_container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.contact_section .map_container .map {
+  width: 100%;
+  height: 100%;
+}
+
+/* CSS for the map container */
+#map-container {
+  width: 50%; /* Set the width of the container */
+  height: 450px; /* Set the height of the container */
+  margin-left: 150px;
+  margin-top: 50px;
+  position: relative; /* Position relative for absolute positioning of marker */
+}
+
+/* CSS for the marker */
+#marker {
+  position: absolute; /* Position the marker absolutely within the container */
+  top: 50%; /* Adjust the marker's top position */
+  left: 50%; /* Adjust the marker's left position */
+  transform: translate(-50%, -50%); /* Center the marker */
+  width: 20px; /* Adjust the width of the marker */
+  height: 20px; /* Adjust the height of the marker */
+  background-color: red; /* Marker color */
+  border-radius: 50%; /* Make the marker round */
+}
+
+
