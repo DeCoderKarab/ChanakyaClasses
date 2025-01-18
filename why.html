@@ -1,298 +1,287 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <!-- Basic -->
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
-  <meta name="keywords" content="" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="shortcut icon" href="images/favicon.png" type="">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>W3.CSS Template with Audio Player</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <style>
+    body,h1 { font-family: "Raleway", sans-serif; }
+    body, html { height: 100%; margin: 0; }
+    .bgimg {
+      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg'); /* Example URL */
+      min-height: 100%;
+      background-position: center;
+      background-size: cover;
+    }
 
-  <title> Finexo </title>
+    /* Premium button styling */
+    .button {
+      background: linear-gradient(45deg, #f5a623, #e84a5f); /* Gradient background */
+      border: none;
+      color: white;
+      padding: 15px 40px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-radius: 30px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+      transition: all 0.3s ease; /* Smooth transition */
+      cursor: pointer;
+    }
 
-  <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    .button:hover {
+      background: linear-gradient(45deg, #e84a5f, #f5a623); /* Reverse gradient on hover */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+      transform: translateY(-3px); /* Slightly lift the button */
+    }
 
-  <!-- fonts style -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    .button:focus {
+      outline: none; /* Remove outline on focus */
+    }
 
-  <!--owl slider stylesheet -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    .button:active {
+      transform: translateY(1px); /* Button slightly pushed when clicked */
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Shadow after click */
+    }
 
-  <!-- font awesome style -->
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
+    /* Centering the content of the middle section */
+    .w3-display-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
 
-  <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+    /* Audio Player Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg');
+      background-size: cover;
+      background-position: center;
+      transition: background-color 1s ease;
+    }
 
+    .audio-panel {
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      width: 300px;
+      display: none; /* Hide the audio panel initially */
+    }
+
+    .audio-title {
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    .control-btn {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin: 10px;
+    }
+
+    .control-btn:hover {
+      background-color: #555;
+    }
+
+    .audio-select {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      border: 1px solid #555;
+      border-radius: 5px;
+    }
+
+    #toggle-bg-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    #toggle-bg-btn:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
+<body>
 
-<body class="sub_page">
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    aPPLE101
+  </div>
+  <div class="w3-display-middle">
+    <h1 class="w3-jumbo w3-animate-top">MUSIC GALLERY</h1>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <p class="w3-large w3-center" id="current-time"></p>
+    <!-- Premium Button Below the Current Date and Time, Centered -->
+    <a href="javascript:void(0);" class="button" id="explore-btn">Explore Now</a>
+  </div>
+  <div class="w3-display-bottomleft w3-padding-large">
+    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">KARAN SURYAWANSHI</a>
+  </div>
+</div>
 
-  <div class="hero_area">
+<div class="audio-panel" id="audio-panel">
+  <button id="toggle-bg-btn">Toggle Background Image</button>
 
-    <div class="hero_bg_box">
-      <div class="bg_img_box">
-        <img src="images/hero-bg.png" alt="">
-      </div>
+  <div class="audio-panel" id="audio-panel">
+    <audio id="audio-player" controls>
+      <source src="audio1.mp3" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="audio-controls">
+      <button id="pause-btn" class="control-btn">Pause</button>
+      <button id="volume-btn" class="control-btn">Volume</button>
     </div>
+    <div class="audio-title" id="audio-title">Audio File 1</div>
 
-    <!-- header section strats -->
-    <header class="header_section">
-      <div class="container-fluid">
-        <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
-            <span>
-              Finexo
-            </span>
-          </a>
-
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class=""> </span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav  ">
-              <li class="nav-item ">
-                <a class="nav-link" href="index.html">Home </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html"> About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="service.html">Services</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="why.html">Why Us <span class="sr-only">(current)</span> </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="team.html">Team</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
-              </li>
-              <form class="form-inline">
-                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </form>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    </header>
-    <!-- end header section -->
+    <!-- Audio List Below the Audio Title -->
+    <select id="audio-select" class="audio-select">
+      <option value="MUSIC/Arcade - Arcade (160 kbps).mp3">ARCADE</option>
+      <option value="MUSIC/Uska Hi Banana 1920 Evil Returns 128 Kbps.mp3">USAKA HI BANA</option>
+      <option value="MUSIC/Meri Jaan Gangubai Kathiawadi 128 Kbps.mp3">MERI JAAN </option>
+      <option value="MUSIC/Ed Sheeran - Perfect(Pagalworld.skin).mp3">PERFECT</option>
+      <option value="MUSIC/Tu-Tu-Hai-Wahi(PagalNew.Com.Se).mp3">TU TU HAI WAHI</option>
+    </select>      
   </div>
 
-  <!-- why section -->
+<script>
+  // Function to get current date and time
+  function getCurrentDateTime() {
+    var currentDateTime = new Date();
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    return currentDateTime.toLocaleString('en-US', options);
+  }
 
-  <section class="why_section layout_padding">
-    <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Why Choose <span>Us</span>
-        </h2>
-      </div>
-      <div class="why_container">
-        <div class="box">
-          <div class="img-box">
-            <img src="images/w1.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Expert Management
-            </h5>
-            <p>
-              Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil.
-              Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus
-            </p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/w2.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Secure Investment
-            </h5>
-            <p>
-              Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil.
-              Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus
-            </p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/w3.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Instant Trading
-            </h5>
-            <p>
-              Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil.
-              Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus
-            </p>
-          </div>
-        </div>
-        <div class="box">
-          <div class="img-box">
-            <img src="images/w4.png" alt="">
-          </div>
-          <div class="detail-box">
-            <h5>
-              Happy Customers
-            </h5>
-            <p>
-              Incidunt odit rerum tenetur alias architecto asperiores omnis cumque doloribus aperiam numquam! Eligendi corrupti, molestias laborum dolores quod nisi vitae voluptate ipsa? In tempore voluptate ducimus officia id, aspernatur nihil.
-              Tempore laborum nesciunt ut veniam, nemo officia ullam repudiandae repellat veritatis unde reiciendis possimus animi autem natus
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="btn-box">
-        <a href="">
-          Read More
-        </a>
-      </div>
-    </div>
-  </section>
+  // Display the current date and time in the "current-time" element
+  document.getElementById('current-time').innerText = getCurrentDateTime();
 
-  <!-- end why section -->
+  // Get elements
+  const pauseBtn = document.getElementById("pause-btn");
+  const volumeBtn = document.getElementById("volume-btn");
+  const audioPlayer = document.getElementById("audio-player");
+  const audioTitle = document.getElementById("audio-title");
+  const audioSelect = document.getElementById("audio-select");
+  const toggleBgBtn = document.getElementById("toggle-bg-btn");
+  const exploreBtn = document.getElementById("explore-btn");
+  const audioPanel = document.getElementById("audio-panel");
 
-  <!-- info section -->
+  let isPlaying = false;
+  let isBackgroundVisible = true; // Track whether the background image is visible
 
-  <section class="info_section layout_padding2">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-3 info_col">
-          <div class="info_contact">
-            <h4>
-              Address
-            </h4>
-            <div class="contact_link_box">
-              <a href="">
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                <span>
-                  Location
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-phone" aria-hidden="true"></i>
-                <span>
-                  Call +01 1234567890
-                </span>
-              </a>
-              <a href="">
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-                <span>
-                  demo@gmail.com
-                </span>
-              </a>
-            </div>
-          </div>
-          <div class="info_social">
-            <a href="">
-              <i class="fa fa-facebook" aria-hidden="true"></i>
-            </a>
-            <a href="">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a href="">
-              <i class="fa fa-linkedin" aria-hidden="true"></i>
-            </a>
-            <a href="">
-              <i class="fa fa-instagram" aria-hidden="true"></i>
-            </a>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 info_col">
-          <div class="info_detail">
-            <h4>
-              Info
-            </h4>
-            <p>
-              necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-2 mx-auto info_col">
-          <div class="info_link_box">
-            <h4>
-              Links
-            </h4>
-            <div class="info_links">
-              <a class="active" href="index.html">
-                Home
-              </a>
-              <a class="" href="about.html">
-                About
-              </a>
-              <a class="" href="service.html">
-                Services
-              </a>
-              <a class="" href="why.html">
-                Why Us
-              </a>
-              <a class="" href="team.html">
-                Team
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 info_col ">
-          <h4>
-            Subscribe
-          </h4>
-          <form action="#">
-            <input type="text" placeholder="Enter email" />
-            <button type="submit">
-              Subscribe
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
+  // 30 different color combinations
+  const colors = [
+    "#ff0000", "#ff4500", "#ff6347", "#ff7f50", "#ff8c00",
+    "#ffa500", "#ffb6c1", "#ff1493", "#f08080", "#f4a460",
+    "#cd5c5c", "#dc143c", "#d2691e", "#b22222", "#800000",
+    "#8b0000", "#ffff00", "#9acd32", "#228b22", "#006400",
+    "#32cd32", "#98fb98", "#8a2be2", "#9370db", "#8b008b",
+    "#4b0082", "#6a5acd", "#4169e1", "#0000ff", "#0000cd"
+  ];
 
-  <!-- end info section -->
+  // Function to change background color based on the current time of the audio
+  function changeBackgroundColor() {
+    const audioTime = audioPlayer.currentTime;
+    const colorIndex = Math.floor(audioTime) % colors.length; // Loop through colors based on audio time
+    document.body.style.backgroundColor = colors[colorIndex];
+  }
 
-  <!-- footer section -->
-  <section class="footer_section">
-    <div class="container">
-      <p>
-        &copy; <span id="displayYear"></span> All Rights Reserved By
-        <a href="https://html.design/">Free Html Templates</a>
-      </p>
-    </div>
-  </section>
-  <!-- footer section -->
+  // Function to play the selected audio
+  function playAudio() {
+    const selectedAudio = audioSelect.value;
+    const selectedText = audioSelect.options[audioSelect.selectedIndex].text; // Get the text of the selected option
 
-  <!-- jQery -->
-  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-  <!-- popper js -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <!-- bootstrap js -->
-  <script type="text/javascript" src="js/bootstrap.js"></script>
-  <!-- owl slider -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
-  </script>
-  <!-- custom js -->
-  <script type="text/javascript" src="js/custom.js"></script>
-  <!-- Google Map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-  </script>
-  <!-- End Google Map -->
+    // Update the source of the audio player based on the selected audio
+    audioPlayer.src = selectedAudio;
+
+    // Show the audio panel
+    audioPanel.style.display = "block";
+
+    // Play the audio
+    audioPlayer.play();
+
+    // Update the title to show the selected audio file name
+    audioTitle.innerText = selectedText;
+
+    // Start changing the background color
+    if (!isPlaying) {
+      isPlaying = true;
+      setInterval(changeBackgroundColor, 100); // Change color every 100ms
+    }
+  }
+
+  // Function to stop changing background color
+  function stopChangingBackgroundColor() {
+    clearInterval(colorInterval); // Stop color change
+    document.body.style.backgroundColor = ''; // Reset background color to default
+  }
+
+  // Event listener for when an audio file is selected
+  audioSelect.addEventListener("change", function() {
+    // Play the selected audio automatically when the dropdown value changes
+    playAudio();
+  });
+
+  // Handle Pause Button Click
+  pauseBtn.addEventListener("click", function() {
+    // Pause the audio
+    audioPlayer.pause();
+    audioTitle.innerText = "Audio Paused"; // Update the title
+
+    // Stop the background color change
+    stopChangingBackgroundColor();
+  });
+
+  // Handle Volume Button Click (Toggle Mute)
+  volumeBtn.addEventListener("click", function() {
+    // Toggle mute
+    audioPlayer.muted = !audioPlayer.muted;
+    volumeBtn.innerText = audioPlayer.muted ? "Unmute" : "Mute"; // Toggle button text
+  });
+
+  // Toggle background image visibility when the button is clicked
+  toggleBgBtn.addEventListener("click", function() {
+    isBackgroundVisible = !isBackgroundVisible;
+    if (isBackgroundVisible) {
+      document.body.style.backgroundImage = "url('https://www.w3schools.com/w3images/forestbridge.jpg')"; // Set the background image
+    } else {
+      document.body.style.backgroundImage = "none"; // Remove the background image
+    }
+  });
+
+  // Show audio panel when "Explore Now" button is clicked
+  exploreBtn.addEventListener("click", function() {
+    playAudio(); // Start playing the default audio
+  });
+</script>
 
 </body>
-
 </html>
