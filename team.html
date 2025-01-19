@@ -10,10 +10,10 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg'); /* Keep background image */
+      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg');
       background-size: cover;
       background-position: center;
-      transition: background-color 1s ease; /* Smooth transition for background color change */
+      transition: background-color 1s ease;
     }
 
     .audio-panel {
@@ -26,7 +26,7 @@
       padding: 20px;
       background-color: rgba(0, 0, 0, 0.5);
       border-radius: 10px;
-      width: 300px; /* Limit panel width */
+      width: 300px;
     }
 
     .audio-title {
@@ -52,14 +52,13 @@
       margin-top: 20px;
       padding: 10px;
       font-size: 16px;
-      width: 100%; /* Make the dropdown take full width of the panel */
+      width: 100%;
       background-color: #333;
       color: white;
       border: 1px solid #555;
       border-radius: 5px;
     }
 
-    /* Button to toggle background image */
     #toggle-bg-btn {
       position: absolute;
       top: 20px;
@@ -72,8 +71,158 @@
       border-radius: 5px;
       font-size: 16px;
     }
+
     #toggle-bg-btn:hover {
       background-color: #555;
+    }
+
+    /* Premium Pop-Up Styling */
+    #premium-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, #F7B733, #FC4A1A);
+      color: #fff;
+      font-size: 70px;
+      font-family: 'Garamond', serif;
+      padding: 120px 160px;
+      border-radius: 25px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      border: 10px solid #F7B733;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5);
+      animation: popupAnimation 3s ease-out forwards, fadeInAnimation 2s ease-out forwards;
+    }
+
+    /* Broken Parts Animation */
+    @keyframes popupAnimation {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5) rotate(90deg);
+      }
+      10% {
+        opacity: 0.2;
+        transform: translate(-50%, -50%) scale(0.6) rotate(80deg);
+      }
+      20% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(0.7) rotate(70deg);
+      }
+      30% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(0.8) rotate(60deg);
+      }
+      40% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.9) rotate(45deg);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(30deg);
+      }
+      60% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(15deg);
+      }
+      70% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Premium Input Section */
+    .premium-input-section {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .premium-input {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: 2px solid #ff8c00;
+      outline: none;
+      transition: all 0.3s ease;
+      width: 250px;
+      background-color: rgba(255, 140, 0, 0.1);
+      color: #ff8c00;
+    }
+
+    .premium-input:focus {
+      border-color: #ff6347;
+      box-shadow: 0 0 10px rgba(255, 99, 71, 0.7);
+    }
+
+    .premium-submit-btn {
+      padding: 12px 30px;
+      background-color: #ff8c00;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 20px;
+    }
+
+    .premium-submit-btn:hover {
+      background-color: #ff6347;
+    }
+
+    .premium-submit-btn:focus {
+      outline: none;
+    }
+
+    .hide-btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      margin-left: 10px;
+    }
+
+    .hide-btn:hover {
+      background-color: #555;
+    }
+
+    /* Initially hide the input section */
+    #input-section {
+      display: none;
+    }
+
+    /* Show Button (Placed at bottom left corner) */
+    #show-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: transparent;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    #show-btn:hover {
+      color: #ff8c00;
     }
   </style>
 </head>
@@ -92,22 +241,36 @@
     </div>
     <div class="audio-title" id="audio-title">Audio File 1</div>
 
-    <!-- Audio List Below the Audio Title -->
     <select id="audio-select" class="audio-select">
       <option value="MUSIC/Arcade - Arcade (160 kbps).mp3">ARCADE</option>
       <option value="MUSIC/Uska Hi Banana 1920 Evil Returns 128 Kbps.mp3">USAKA HI BANA</option>
-      <option value="MUSIC/Meri Jaan Gangubai Kathiawadi 128 Kbps.mp3">MERI JAAN </option>
+      <option value="MUSIC/Meri Jaan Gangubai Kathiawadi 128 Kbps.mp3">MERI JAAN</option>
       <option value="MUSIC/Ed Sheeran - Perfect(Pagalworld.skin).mp3">PERFECT</option>
       <option value="MUSIC/Tu-Tu-Hai-Wahi(PagalNew.Com.Se).mp3">TU TU HAI WAHI</option>
       <option value="MUSIC/Pehla Pyaar - Kabir Singh 128 Kbps.mp3">Pehla pyaar</option>
       <option value="MUSIC/Gulabi Sadi - Sanju Rathod 128 Kbps.mp3">Gulabi sadi</option>
       <option value="MUSIC/Mere Naam Tu - Zero 128 Kbps.mp3">MERE NAAM TU</option>
       <option value="MUSIC/Humnava Mere Jubin Nautiyal 128 Kbps.mp3">HUMNAVA MERE</option>
-    </select>      
+    </select>
   </div>
 
+  <!-- Premium Input Section (Initially Hidden) -->
+  <div class="premium-input-section" id="input-section">
+    <input type="text" class="premium-input" id="user-input" placeholder="Enter your message">
+    <button class="premium-submit-btn" id="submit-btn">Submit</button>
+    <button class="hide-btn" id="hide-btn">Hide</button>
+  </div>
+
+  <!-- Show Button at bottom-left -->
+  <button id="show-btn">Show</button>
+
+  <!-- Premium Popup -->
+  <div id="premium-popup"><a href="https://chanakyacoachingclass.com/why.html">Welcome Gudiya!</a></div>
+
+  
+
   <script>
-    // Get elements
+    // JavaScript for the audio controls and background color change remains the same
     const pauseBtn = document.getElementById("pause-btn");
     const volumeBtn = document.getElementById("volume-btn");
     const audioPlayer = document.getElementById("audio-player");
@@ -116,9 +279,8 @@
     const toggleBgBtn = document.getElementById("toggle-bg-btn");
 
     let isPlaying = false;
-    let isBackgroundVisible = true; // Track whether the background image is visible
+    let isBackgroundVisible = true;
 
-    // 30 different color combinations
     const colors = [
       "#ff0000", "#ff4500", "#ff6347", "#ff7f50", "#ff8c00",
       "#ffa500", "#ffb6c1", "#ff1493", "#f08080", "#f4a460",
@@ -128,77 +290,89 @@
       "#4b0082", "#6a5acd", "#4169e1", "#0000ff", "#0000cd"
     ];
 
-    // Function to change background color based on the current time of the audio
     function changeBackgroundColor() {
       const audioTime = audioPlayer.currentTime;
-      const colorIndex = Math.floor(audioTime) % colors.length; // Loop through colors based on audio time
+      const colorIndex = Math.floor(audioTime) % colors.length;
       document.body.style.backgroundColor = colors[colorIndex];
     }
 
-    // Function to play the selected audio
     function playAudio() {
       const selectedAudio = audioSelect.value;
-      const selectedText = audioSelect.options[audioSelect.selectedIndex].text; // Get the text of the selected option
-
-      // Update the source of the audio player based on the selected audio
+      const selectedText = audioSelect.options[audioSelect.selectedIndex].text;
       audioPlayer.src = selectedAudio;
-
-      // Show the audio panel
       document.getElementById("audio-panel").style.display = "block";
-
-      // Play the audio
       audioPlayer.play();
-
-      // Update the title to show the selected audio file name
       audioTitle.innerText = selectedText;
-
-      // Start changing the background color
       if (!isPlaying) {
         isPlaying = true;
-        setInterval(changeBackgroundColor, 100); // Change color every 100ms
+        setInterval(changeBackgroundColor, 100);
       }
     }
 
-    // Function to stop changing background color
     function stopChangingBackgroundColor() {
-      clearInterval(colorInterval); // Stop color change
-      document.body.style.backgroundColor = ''; // Reset background color to default
+      clearInterval(colorInterval);
+      document.body.style.backgroundColor = '';
     }
 
-    // Event listener for when an audio file is selected
     audioSelect.addEventListener("change", function() {
-      // Play the selected audio automatically when the dropdown value changes
       playAudio();
     });
 
-    // Handle Pause Button Click
     pauseBtn.addEventListener("click", function() {
-      // Pause the audio
       audioPlayer.pause();
-      audioTitle.innerText = "Audio Paused"; // Update the title
-
-      // Stop the background color change
+      audioTitle.innerText = "Audio Paused";
       stopChangingBackgroundColor();
     });
 
-    // Handle Volume Button Click (Toggle Mute)
     volumeBtn.addEventListener("click", function() {
-      // Toggle mute
       audioPlayer.muted = !audioPlayer.muted;
-      volumeBtn.innerText = audioPlayer.muted ? "Unmute" : "Mute"; // Toggle button text
+      volumeBtn.innerText = audioPlayer.muted ? "Unmute" : "Mute";
     });
 
-    // Toggle background image visibility when the button is clicked
     toggleBgBtn.addEventListener("click", function() {
       isBackgroundVisible = !isBackgroundVisible;
       if (isBackgroundVisible) {
-        document.body.style.backgroundImage = "url('https://www.w3schools.com/w3images/forestbridge.jpg')"; // Set the background image
+        document.body.style.backgroundImage = "url('https://www.w3schools.com/w3images/forestbridge.jpg')";
       } else {
-        document.body.style.backgroundImage = "none"; // Remove the background image
+        document.body.style.backgroundImage = "none";
       }
     });
 
-    // Initialize the player with the default audio
+    // New Code for Handling Input and Premium Pop-Up
+    const submitBtn = document.getElementById("submit-btn");
+    const userInput = document.getElementById("user-input");
+    const inputSection = document.getElementById("input-section");
+    const hideBtn = document.getElementById("hide-btn");
+    const premiumPopup = document.getElementById("premium-popup");
+
+    submitBtn.addEventListener("click", function() {
+      const inputValue = userInput.value.trim();
+      if (inputValue === "alfiya_world101") {
+        premiumPopup.style.display = "block"; // Show the premium popup
+        setTimeout(() => {
+          premiumPopup.style.opacity = 1;
+        }, 500); // Delay for smooth animation
+      } else {
+        alert("Invalid input. Please try again.");
+      }
+    });
+
+    hideBtn.addEventListener("click", function() {
+      if (inputSection.style.display === "none") {
+        inputSection.style.display = "flex";
+        hideBtn.textContent = "Hide";
+      } else {
+        inputSection.style.display = "none";
+        hideBtn.textContent = "Show";
+      }
+    });
+
+    const showButton = document.getElementById('show-btn');
+    showButton.addEventListener("click", function() {
+      inputSection.style.display = "flex";
+      showButton.style.display = "none"; // Hide the show button after clicking
+    });
+
     playAudio();
   </script>
 
