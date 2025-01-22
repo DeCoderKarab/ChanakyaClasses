@@ -1,266 +1,622 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>W3.CSS Template with Audio Player</title>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-  <style>
-    body,h1 { font-family: "Raleway", sans-serif; }
-    body, html { height: 100%; margin: 0; }
-    .bgimg {
-      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg'); /* Example URL */
-      min-height: 100%;
-      background-position: center;
-      background-size: cover;
-    }
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="Chanakya Coaching Class, coaching class, education, learning, exams" />
+  <meta name="description" content="Chanakya Coaching Class - Providing quality education and coaching for competitive exams. Join us to excel in your exams and achieve your goals." />
+  <meta name="author" content="Karan Suryawanshi" />
+  <!-- <link rel="shortcut icon" href="images/favicon.png" type=""> -->
 
-    /* Premium button styling */
-    .button {
-      background: linear-gradient(45deg, #f5a623, #e84a5f); /* Gradient background */
-      border: none;
-      color: white;
-      padding: 15px 40px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      border-radius: 30px;
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
-      transition: all 0.3s ease; /* Smooth transition */
-      cursor: pointer;
-    }
+  
 
-    .button:hover {
-      background: linear-gradient(45deg, #e84a5f, #f5a623); /* Reverse gradient on hover */
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
-      transform: translateY(-3px); /* Slightly lift the button */
-    }
 
-    .button:focus {
-      outline: none; /* Remove outline on focus */
-    }
+  <title> chanakya coaching class </title>
 
-    .button:active {
-      transform: translateY(1px); /* Button slightly pushed when clicked */
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Shadow after click */
-    }
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
-    /* Centering the content of the middle section */
-    .w3-display-middle {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+  
 
-    /* Audio Panel Styling */
-    .audio-panel {
-      text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      width: 300px;
-      display: none; /* Initially hidden */
-    }
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-    .audio-title {
-      margin-top: 20px;
-      font-size: 24px;
-    }
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
-    .control-btn {
-      background-color: #333;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin: 10px;
-    }
+  <link rel="icon" href="images/logo.png" style="width: 10%;" type="image/x-icon">
 
-    .control-btn:hover {
-      background-color: #555;
-    }
 
-    .audio-select {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 16px;
-      width: 100%;
-      background-color: #333;
-      color: white;
-      border: 1px solid #555;
-      border-radius: 5px;
-    }
 
-    /* Button to toggle background image */
-    #toggle-bg-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+  <!-- font awesome style -->
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
 
-    #toggle-bg-btn:hover {
-      background-color: #555;
-    }
-  </style>
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet" />
+  <!-- <link href="css/form.css" rel="stylesheet"> -->
+  <!-- responsive style -->
+  <link href="css/responsive.css" rel="stylesheet" />
+
 </head>
+
 <body>
 
-<!-- Gallery Section -->
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white" id="gallery-section">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    aPPLE101
+  <div style="background-color: rgb(98, 12, 236);" class="hero_area">
+
+    <div class="hero_bg_box">
+      <div class="bg_img_box">
+        <img  src="images/logo.png" alt="">
+      </div>
+    </div>
+
+    <!-- header section strats -->
+    <header  class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              <!-- <img style="width: 10%;" src="images/logo.png" alt=""> -->
+              <H2> चाणक्य क्लासेस</H2>
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  ">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about"> About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#info">info</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#why">Why Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#team">Team</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#"> <i class="fa fa-user" aria-hidden="true"></i> Login</a>
+              </li> -->
+              <form class="form-inline">
+                <!-- <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button> -->
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <!-- slider section -->
+    <section class="slider_section">
+      <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div  class="detail-box">
+                    <h1 style="color: aqua;">
+                      Mr. Pravin 
+                      <br>
+                      Mahale
+                    </h1>
+                    <p >
+                      Introducing Mr. Pravin Mahale, the visionary founder of Chanakya Coaching Classes, a beacon of academic excellence. 🌟
+                      <h3> </h3></p>
+                    <p>   A graduate from K.T.H.M College, Nashik, Mr. Mahale brings a blend of passion and expertise to the realm of education. 🔬
+                    </p>
+                    <p>
+                      With a degree in nano technology, his knowledge transcends conventional boundaries, offering students a unique perspective on the world of science. 🚀                    
+                    </p>
+                    <p>
+                      His innovative approach to teaching ignites curiosity and inspires a new generation of aspiring scientists to push the limits of what is possible. 🌌
+                    </p>
+                    <p>
+                      Through his guidance, students embark on a journey of discovery, unlocking the mysteries of the universe one lesson at a time. 🌠
+                    </p>
+                    
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                    <img style="width: 500px;"  src="images/book.png" alt="Book Image">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    <h1 style="color: yellow;">
+                      Mr. Nilesh <br>
+                      Baviskar
+                    </h1>
+                    <p>
+                      🌟  Introducing Nilesh Baviskar,
+                      a passionate educator
+                      and co-founder of Chanakya Class,
+                      dedicated to shaping the minds of tomorrow
+                      <h1></h1> </p>
+                      <p>
+                      🎓 With a solid foundation in pharmaceutical sciences,
+                      Nilesh holds a Bachelor's degree in Pharmacy
+                      from K.K. Wagh College of Pharmacy.
+                    </p> 
+                      <p>
+                      📚 His journey as a teacher
+                      is imbued with a deep-rooted commitment
+                      to imparting knowledge
+                      and fostering a love for learning
+                      among his students.
+                    </p>
+                    <p>
+                      🌱 Nilesh's blend of academic excellence
+                      and pedagogical prowess
+                      creates an engaging learning environment
+                      where students thrive and excel.
+                    </p>
+                    <p>
+                      ✨ Get ready to embark
+                      on a transformative educational journey
+                      with Nilesh Baviskar at the helm.
+                    </p>
+                    
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div  class="">
+                    <img style="width: 80%;" src="images/book.png" alt="Book Image">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="detail-box">
+                    <h1 style="color: gold;">
+                      चाणक्य  <br>
+                      कोचिंग क्लासेस
+                    </h1>
+                    <p>
+                      🏫 About Us:
+                      Chanakya Coaching Class is a premier educational institution located in the vibrant city of Nashik. Established with the vision to provide quality education to students from diverse backgrounds, our institute caters to students from 1st to 10th grade.
+                    </p>
+                    <p>
+                      🌟 Mission:
+                      Our mission is to nurture young minds, instill a passion for learning, and empower students with the knowledge and skills they need to excel academically and beyond.
+                      </p><p>
+                      👩‍🏫 Educational Approach:
+                      At Chanakya Coaching Class, we believe in a holistic approach to education. Our experienced faculty members are dedicated to providing personalized attention to each student, fostering a conducive learning environment that encourages curiosity, critical thinking, and creativity.                    
+                    </p>
+                    <!-- <div class="btn-box">
+                      <a href="#" class="btn1">
+                        Read More
+                      </a>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div  class="">
+                    <img style="width: 80%;" src="images/book.png" alt="Book Image">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ol class="carousel-indicators">
+          <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+          <li data-target="#customCarousel1" data-slide-to="1"></li>
+          <li data-target="#customCarousel1" data-slide-to="2"></li>
+        </ol>
+      </div>
+    </section>
+      
+    <!-- end slider section -->
   </div>
-  <div class="w3-display-middle">
-    <h1 class="w3-jumbo w3-animate-top">MUSIC GALLERY</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
-    <p class="w3-large w3-center" id="current-time"></p>
-    <!-- Premium Button Below the Current Date and Time, Centered -->
-    <a href="javascript:void(0);" class="button" id="explore-btn">Explore Now</a>
-  </div>
-  <div class="w3-display-bottomleft w3-padding-large">
-    Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">KARAN SURYAWANSHI</a>
-  </div>
-</div>
 
-<!-- Audio Section (Initially hidden) -->
-<div class="audio-panel" id="audio-panel">
-  <button id="toggle-bg-btn">Toggle Background Image</button>
 
-  <div class="audio-controls">
-    <audio id="audio-player" controls>
-      <source src="audio1.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <button id="pause-btn" class="control-btn">Pause</button>
-    <button id="volume-btn" class="control-btn">Volume</button>
-  </div>
-  <div class="audio-title" id="audio-title">Audio File 1</div>
 
-  <select id="audio-select" class="audio-select">
-    <option value="MUSIC/Arcade - Arcade (160 kbps).mp3">ARCADE</option>
-    <option value="MUSIC/Uska Hi Banana 1920 Evil Returns 128 Kbps.mp3">USAKA HI BANA</option>
-    <option value="MUSIC/Meri Jaan Gangubai Kathiawadi 128 Kbps.mp3">MERI JAAN </option>
-    <option value="MUSIC/Ed Sheeran - Perfect(Pagalworld.skin).mp3">PERFECT</option>
-    <option value="MUSIC/Tu-Tu-Hai-Wahi(PagalNew.Com.Se).mp3">TU TU HAI WAHI</option>
-  </select>
-</div>
 
-<script>
-  // Function to get current date and time
-  function getCurrentDateTime() {
-    var currentDateTime = new Date();
-    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    return currentDateTime.toLocaleString('en-US', options);
-  }
+  <!-- why section -->
 
-  // Display the current date and time in the "current-time" element
-  document.getElementById('current-time').innerText = getCurrentDateTime();
+  <section id="why" class="why_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          आम्हाला का <span>निवडा</span>
+        </h2>
+      </div>
+      <div class="why_container">
+        <div class="box">
+          <div class="img-box">
+            <img src="images/w1.png" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              वैयक्तिकृत अभ्यास योजना
+            </h5>
+            <p>
+              चाणक्य कोचिंग क्लासेसमध्ये, आपल्याला अनुभवार्थील प्रत्येक विद्यार्थ्याची अद्वितीय शिक्षण आवश्यकता आणि आकांक्षांची काळजी घेण्याची जिम्मेवारी आहे. तसेच, आपल्याला वैयक्तिकृत अभ्यास योजना तयार करताना आपल्याला विद्यार्थ्यांच्या बल, दुर्बलता आणि उत्साहांचा ध्यान घेतो. प्रतिस्पर्धी परीक्षा तयारी करण्याच्या किंवा अकॅडेमिक प्रदर्द्धता वाढवण्याच्या दृष्टीने, आमचा तैयार केलेला प्रयत्न विद्यार्थ्यांसाठी उत्तम शिक्षण परिणाम सुनिश्चित करतो.            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="images/C img.png" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              आकर्षक शिक्षणासाठी नाविन्यपूर्ण शिकवण्याच्या पद्धती
+            </h5>
+            <p>
+              आम्ही पारंपारिक व्याख्याने आणि पाठ्यपुस्तकांच्या पलीकडे जाणाऱ्या नाविन्यपूर्ण शिक्षण पद्धती वापरतो. आमची परस्परसंवादी सत्रे, गट चर्चा, वास्तविक जीवनातील केस स्टडीज आणि मल्टीमीडिया सादरीकरणे शिक्षणाला गतिमान आणि आकर्षक बनवतात. विविध शिक्षण तंत्रांचा समावेश करून, आम्ही विद्यार्थ्यांमध्ये सक्रिय सहभाग आणि सखोल समज वाढवतो
+            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img style="width: 80%;" src="images/f2.webp" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              प्रगती ट्रॅकिंगसाठी सतत मूल्यांकन आणि अभिप्राय
+            </h5>
+            <p>
+              विद्यार्थ्यांच्या प्रगतीचे अचूक मापन करण्यासाठी सतत मूल्यमापन आणि अभिप्रायाच्या महत्त्वावर आमचा विश्वास आहे. नियमित क्विझ, असाइनमेंट, मॉक टेस्ट आणि कार्यप्रदर्शन मूल्यमापन यांद्वारे, आम्ही प्रत्येक विद्यार्थ्याच्या शैक्षणिक विकासाबद्दल तपशीलवार अंतर्दृष्टी प्रदान करतो. विद्यार्थ्यांना आव्हानांवर मात करण्यासाठी आणि त्यांच्या अभ्यासात उत्कृष्ट कामगिरी करण्यासाठी आमचे प्रशिक्षक रचनात्मक अभिप्राय आणि मार्गदर्शन देतात.            </p>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img style="width: 100%;" src="images/supportive.png" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              सहाय्यक आणि प्रेरणादायी शिक्षण पर्यावरण
+            </h5>
+            <p>
+              चाणक्य कोचिंग क्लासेस एक सहाय्यक आणि प्रेरणादायी शिक्षण वातावरण तयार करतात जिथे विद्यार्थ्यांना उत्कृष्टतेसाठी प्रयत्न करण्याची शक्ती मिळते. आमच्या वर्गखोल्या दोलायमान जागा आहेत जिथे कुतूहलाला प्रोत्साहन दिले जाते, प्रश्नांचे स्वागत केले जाते आणि सहयोगाला प्रोत्साहन दिले जाते. याव्यतिरिक्त, आमचे समर्पित सहाय्यक कर्मचारी आणि सर्वसमावेशक संसाधने हे सुनिश्चित करतात की विद्यार्थ्यांकडे यशस्वी होण्यासाठी आवश्यक असलेली सर्व साधने आहेत          </div>
+        </div>
+      </div>
+      <div class="btn-box">
+        <!-- <a href="">
+          Read More
+        </a> -->
+      </div>
+    </div>
+  </section>
 
-  // Get elements
-  const pauseBtn = document.getElementById("pause-btn");
-  const volumeBtn = document.getElementById("volume-btn");
-  const audioPlayer = document.getElementById("audio-player");
-  const audioTitle = document.getElementById("audio-title");
-  const audioSelect = document.getElementById("audio-select");
-  const toggleBgBtn = document.getElementById("toggle-bg-btn");
-  const exploreBtn = document.getElementById("explore-btn");
-  const gallerySection = document.getElementById("gallery-section");
-  const audioPanel = document.getElementById("audio-panel");
+  <!-- end why section -->
 
-  let isPlaying = false;
-  let isBackgroundVisible = true;
+  <!-- about section -->
 
-  // Function to change background color based on the current time of the audio
-  function changeBackgroundColor() {
-    const audioTime = audioPlayer.currentTime;
-    const colorIndex = Math.floor(audioTime) % 30; // Loop through 30 different colors
-    const colors = [
-      "#ff0000", "#ff4500", "#ff6347", "#ff7f50", "#ff8c00",
-      "#ffa500", "#ffb6c1", "#ff1493", "#f08080", "#f4a460",
-      "#cd5c5c", "#dc143c", "#d2691e", "#b22222", "#800000",
-      "#8b0000", "#ffff00", "#9acd32", "#228b22", "#006400",
-      "#32cd32", "#98fb98", "#8a2be2", "#9370db", "#8b008b",
-      "#4b0082", "#6a5acd", "#4169e1", "#0000ff", "#0000cd"
-    ];
-    document.body.style.backgroundColor = colors[colorIndex];
-  }
+  <section id="about" style="background-color: blue;" class="about_section layout_padding">
+    <div  class="container">
+      <div class="heading_container heading_center">
+        <h2>
+          About <span>Us</span>
+        </h2>
+        <p>
+         
+         
+         
+          <!-- Magni quod blanditiis non minus sed aut voluptatum illum quisquam aspernatur ullam vel beatae rerum ipsum voluptatibus -->
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 ">
+          <div class="img-box">
+            <img src="images/teaching.png" alt="">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h3>
+              चाणक्य कोचिंग क्लासेस
+            </h3>
+            <p>
+             
 
-  // Function to play the selected audio
-  function playAudio() {
-    const selectedAudio = audioSelect.value;
-    const selectedText = audioSelect.options[audioSelect.selectedIndex].text;
+              🚀 चाणक्य कोचिंग क्लासेससह तुमची क्षमता अनलॉक करा! <br>
+              <h1></h1>
 
-    // Update the source of the audio player based on the selected audio
-    audioPlayer.src = selectedAudio;
+              🎓 तुम्ही शिकण्याच्या आणि शोधाच्या रोमांचक प्रवासाला सुरुवात करण्यास तयार आहात का? चाणक्य कोचिंग क्लासेसपेक्षा पुढे पाहू नका – जिथे नाविन्यपूर्ण शिक्षण मिळते!  <br>
+              <h1></h1> 
+              🌟 आमच्याबद्दल: म्हाडा कॉलनीमध्ये एप्रिल 2024 मध्ये स्थापन झेलला आहे:, आम्ही फक्त कोचिंग सेंटर नाही; आम्ही इयत्ता 1 ते 10 पर्यंतच्या तरुण मनांना सशक्त करण्यासाठी वचनबद्ध समुदाय आहोत. आमची शिक्षकांची डायनॅमिक टीम वर्गात उत्कटता आणि कौशल्य आणते, एक आकर्षक आणि समृद्ध शिक्षण अनुभव सुनिश्चित करते. <br>
+              <h1></h1> 
+              🔍 आमचा दृष्टीकोन: चाणक्य कोचिंग क्लासेसमध्ये, आम्ही पारंपारिक शिकवण्याच्या पद्धतींच्या पलीकडे जातो. आम्ही केवळ शैक्षणिक उत्कृष्टतेवरच नव्हे तर सचोटी आणि चिकाटी यांसारख्या मूल्यांचे पालनपोषण करण्यावर विश्वास ठेवतो. शिक्षणासाठी आमचा सर्वांगीण दृष्टीकोन हे सुनिश्चित करतो की प्रत्येक विद्यार्थ्याला वर्गाच्या आत आणि बाहेर, यशस्वी होण्यासाठी आवश्यक असलेला पाठिंबा मिळतो. <br>
+              <h1></h1>
+              🌈 आमच्यात सामील व्हा: तुम्ही शैक्षणिक उत्कृष्टतेचे ध्येय बाळगत असाल किंवा जीवनावश्यक कौशल्ये विकसित करण्याचा विचार करत असाल, चाणक्य कोचिंग क्लासेस तुम्हाला प्रत्येक टप्प्यावर मार्गदर्शन करण्यासाठी येथे आहेत. चला एकत्र या प्रवासाला सुरुवात करूया आणि तुमची पूर्ण क्षमता अनलॉक करूया! <br>
+              <h1></h1>
+              🚀 तुमचे भविष्य घडवा: केवळ यशाची स्वप्ने पाहू नका - चाणक्य कोचिंग क्लासेससह ते प्रत्यक्षात आणा. आजच नावनोंदणी करा आणि उज्वल भविष्याकडे पहिले पाऊल टाका!
+                         
+            </p>
+            <p>
+              <!-- Molestiae odio earum non qui cumque provident voluptates, repellendus exercitationem, possimus at iste corrupti officiis unde alias eius ducimus reiciendis soluta eveniet. Nobis ullam ab omnis quasi expedita. -->
+            </p>
+            <!-- <a href="">
+              Read More
+            </a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    // Show the audio panel
-    audioPanel.style.display = "block";
-    gallerySection.style.display = "none"; // Hide the gallery
+  <!-- end about section -->
 
-    // Play the audio
-    audioPlayer.play();
 
-    // Update the title to show the selected audio file name
-    audioTitle.innerText = selectedText;
 
-    // Start changing the background color
-    if (!isPlaying) {
-      isPlaying = true;
-      setInterval(changeBackgroundColor, 100); // Change color every 100ms
-    }
-  }
+  <!-- team section -->
+  <section id="services">
 
-  // Event listener for when an audio file is selected
-  audioSelect.addEventListener("change", function() {
-    playAudio();
-  });
+    <section class="service_section layout_padding">
+      <div class="container">
+        <div class="heading_container">
+          <h2 style="text-align: center;">
+            आमच्या सर्वोत्कृष्ट वैशिष्ट्ये
+          </h2>
+          <p style="text-align: center;">
+            आम्ही आमच्या विद्यार्थ्यांच्या करिअर तयार करण्यासाठी काही उत्कृष्ट वैशिष्ट्ये पुरवतो
+          </p>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/studyMaterials.png" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  पायापासुन गणित शिकवणी.
+                </h5>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/attendaceTracking.jpeg" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  सुसज्ज असा वर्गपरिसर
+                </h5>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/ExamTaking.jpg" alt="">
+              </div>
+              <div class="detail-box">
+                <h5>
+                  अनुभवी आणि कुशल शिक्षकांचे मार्गदर्शन.
+                </h5>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="box">
+              <div class="img-box">
+                <img src="images/p1.jpg" alt="">
+              </div>
+              <div  class="detail-box">
+                <h5>
+                  नियमितपणे सराव परीक्षा
+                </h5>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  </section>
+  <!-- end team section -->
 
-  // Handle Pause Button Click
-  pauseBtn.addEventListener("click", function() {
-    audioPlayer.pause();
-    audioTitle.innerText = "Audio Paused";
-  });
 
-  // Handle Volume Button Click (Toggle Mute)
-  volumeBtn.addEventListener("click", function() {
-    audioPlayer.muted = !audioPlayer.muted;
-    volumeBtn.innerText = audioPlayer.muted ? "Unmute" : "Mute";
-  });
+  <!-- client section -->
 
-  // Toggle background image visibility when the button is clicked
-  toggleBgBtn.addEventListener("click", function() {
-    isBackgroundVisible = !isBackgroundVisible;
-    if (isBackgroundVisible) {
-      document.body.style.backgroundImage = "url('https://www.w3schools.com/w3images/forestbridge.jpg')";
-    } else {
-      document.body.style.backgroundImage = "none";
-    }
-  });
+  <section style="background-color: blue;" class="contact_section layout_padding">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 col-lg-4 offset-md-1">
+                <div class="form_container">
+                    <div class="heading_container">
+                        <h2>Request A Call back</h2>
+                    </div>
+                    <form method="post" action="https://script.google.com/macros/s/AKfycby3y7ItWb2OcQib1wPvYUmCGx2KuJpQCMjSWGP3cuVFDOnfHCVPCKBJNqDM0H3MH8oOtg/exec">
+                        <div>
+                            <input type="text" name="name" placeholder="Full Name" />
+                        </div>
+                        
+                        <div>
+                            <input type="email" name="email" placeholder="Email" />
+                        </div>
+                        <div>
+                            <input type="text" name="number" placeholder="Phone number" />
+                        </div>
+                        <div>
+                            <input type="text" name="message" class="message-box" placeholder="Message" />
+                        </div>
+                        <div class="d-flex ">
+                            <button>SEND</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-7 px-0">
+                <div id="map-container">
+                    <div class="map">
+                        <!-- Map content goes here -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1874.9773838758924!2d73.71915919999999!3d19.9684044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddecc1ed216f19%3A0xb584a6820ba34e04!2sMhada%20Colony%2C%20Bhor%20Town%20Ship%2C%20Nashik%2C%20Maharashtra%20422007!5e0!3m2!1sen!2sin!4v1711100514167!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-  // Show audio panel when "Explore Now" button is clicked
-  exploreBtn.addEventListener("click", function() {
-    playAudio(); // Start playing the default audio
-  });
+  <!-- end client section -->
+
+
+  <!-- info section -->
+
+  <section id="info" class="info_section layout_padding2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-lg-3 info_col">
+          <div class="info_contact">
+            <h4>
+              Address
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Nashik
+                </span>
+              </a>
+              <a href="tel:+918956109806">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 8956109806
+                </span>
+              </a>
+              <a href="mailto:chankyacoachingclass@gmail.com">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                chankyacoachingclass@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="info_social">
+            <a href="https://www.facebook.com/chankyacoachingclass?mibextid=ZbWKwL">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+            </a>
+            <!-- <a href="">
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+            <a href="">
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a> -->
+            <h1></h1>
+            <a href="https://www.instagram.com/chankyacoachingclasses?utm_source=qr&igsh=NmZpMWs2eGV3bzY5">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+        <!-- <div class="col-md-6 col-lg-3 info_col">
+          <div class="info_detail">
+            <h4>
+              Info
+            </h4>
+            <p>
+              necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful
+            </p>
+          </div>
+        </div> -->
+        <div class="col-md-6 col-lg-2 mx-auto info_col">
+          <div class="info_link_box">
+            <h4>
+              Links
+            </h4>
+            <div class="info_links">
+              <a class="active" href="index.html">
+                Home
+              </a>
+              <a class="" href="#about">
+                About
+              </a>
+              <a class="" href="#info">
+                Info
+              </a>
+              <a class="" href="#why">
+                Why Us
+              </a>
+              <a class="" href="#team">
+                Team
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+      <p>
+        <span id="displayYear"></span> All Rights Reserved. design By
+        <a href="https://decoderkarab.github.io/Demo-01/">karan suryawanshi</a>
+      </p>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end info section -->
+
+  
+
+  <!-- footer section -->
+  <!-- <section class="footer_section">
+    <div class="container">
+      <p>
+        <span id="displayYear"></span> All Rights Reserved By
+        <a href="https://www.chanakyacoachingclass.com">Chanakya coaching class</a>
+      </p>
+    </div>
+  </section> -->
+  <!-- footer section -->
+
+
+  <!-- // Disable right-click menu -->
+
+  <script>
+    
+   // window.addEventListener('contextmenu', function (e) {
+   //     e.preventDefault();
+   // });
+
 </script>
 
+
+  <!-- jQery -->
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="js/bootstrap.js"></script>
+  <!-- owl slider -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- custom js -->
+  <script type="text/javascript" src="js/custom.js"></script>
+  </script>
+  <!-- End Google Map -->
+
 </body>
+
 </html>
