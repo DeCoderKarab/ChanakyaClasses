@@ -3,217 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Custom Audio Player</title>
+  <title>Premium Movie Player</title>
   <style>
+    /* General body styling */
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       height: 100vh;
-      background-image: url('https://www.w3schools.com/w3images/forestbridge.jpg'); /* Keep background image */
-      background-size: cover;
-      background-position: center;
-      transition: background-color 1s ease; /* Smooth transition for background color change */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Colorful gradient background */
+      font-family: 'Arial', sans-serif;
+      position: relative;
     }
 
-    .audio-panel {
+    /* Movie title styling */
+    .movie-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
       text-align: center;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Text shadow for premium look */
       position: absolute;
-      top: 50%;
+      /* Default position at the top */
+      top: 20px;
       left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-radius: 10px;
-      width: 300px; /* Limit panel width */
+      transform: translateX(-50%);
     }
 
-    .audio-title {
-      margin-top: 20px;
-      font-size: 24px;
+    /* Styling the iframe container */
+    .iframe-container {
+      width: 1000px;
+      height: 600px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for premium look */
+      overflow: hidden;
+      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Beautiful gradient border */
+      border: 5px solid transparent;
+      background-clip: padding-box; /* Make sure the background doesn't overlap the border */
     }
 
-    .control-btn {
-      background-color: #333;
-      color: white;
+    /* Adding a colorful border effect */
+    .iframe-container::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #ff6a00, #ffcc00, #ff4b2b, #b039f4); /* Gradient border */
+      z-index: -1;
+      border-radius: 15px;
+    }
+
+    /* Styling for the iframe */
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      border-radius: 5px;
-      margin: 10px;
+      border-radius: 10px;
     }
 
-    .control-btn:hover {
-      background-color: #555;
-    }
-
-    .audio-select {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 16px;
-      width: 100%; /* Make the dropdown take full width of the panel */
-      background-color: #333;
-      color: white;
-      border: 1px solid #555;
-      border-radius: 5px;
-    }
-
-    /* Button to toggle background image */
-    #toggle-bg-btn {
+    /* Select dropdown to choose title position */
+    .position-select {
       position: absolute;
       top: 20px;
-      left: 20px;
-      padding: 10px 20px;
-      background-color: #333;
-      color: white;
-      border: none;
-      cursor: pointer;
+      right: 20px;
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #333;
       border-radius: 5px;
-      font-size: 16px;
-    }
-    #toggle-bg-btn:hover {
-      background-color: #555;
+      border: 1px solid #ccc;
+      cursor: pointer;
     }
 
-    /* Style for the YouTube iframe */
-    .youtube-video {
-      margin-top: 30px;
-      width: 100%;
-      max-width: 560px; /* Set a max-width */
-      height: 315px; /* Aspect ratio 16:9 */
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow */
-    }
   </style>
 </head>
 <body>
 
-  <button id="toggle-bg-btn">Toggle Background Image</button>
+  <!-- Dropdown to select title position -->
+  <select id="position-select" class="position-select">
+    <option value="top">Top</option>
+    <option value="bottom">Bottom</option>
+    <option value="left">Left</option>
+    <option value="right">Right</option>
+  </select>
 
-  <div class="audio-panel" id="audio-panel">
-    <audio id="audio-player" controls>
-      <source src="audio1.mp3" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-    <div class="audio-controls">
-      <button id="pause-btn" class="control-btn">Pause</button>
-      <button id="volume-btn" class="control-btn">Volume</button>
-    </div>
-    <div class="audio-title" id="audio-title">Audio File 1</div>
+  <!-- Movie Title -->
+  <div class="movie-title" id="movie-title">Awesome Movie Title</div>
 
-    <!-- Audio List Below the Audio Title -->
-    <select id="audio-select" class="audio-select">
-      <option value="MUSIC/Arcade - Arcade (160 kbps).mp3">ARCADE</option>
-      <option value="MUSIC/Uska Hi Banana 1920 Evil Returns 128 Kbps.mp3">USAKA HI BANA</option>
-      <option value="MUSIC/Meri Jaan Gangubai Kathiawadi 128 Kbps.mp3">MERI JAAN </option>
-      <option value="MUSIC/Ed Sheeran - Perfect(Pagalworld.skin).mp3">PERFECT</option>
-      <option value="MUSIC/Tu-Tu-Hai-Wahi(PagalNew.Com.Se).mp3">TU TU HAI WAHI</option>
-      <option value="MUSIC/Pehla Pyaar - Kabir Singh 128 Kbps.mp3">Pehla pyaar</option>
-      <option value="MUSIC/Gulabi Sadi - Sanju Rathod 128 Kbps.mp3">Gulabi sadi</option>
-      <option value="MUSIC/Mere Naam Tu - Zero 128 Kbps.mp3">MERE NAAM TU</option>
-      <option value="MUSIC/Humnava Mere Jubin Nautiyal 128 Kbps.mp3">HUMNAVA MERE</option>
-    </select> 
-
-    <!-- YouTube Video Embed -->
-    <iframe class="youtube-video" src="https://www.youtube.com/embed/MlLwSt23wUc" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <!-- Iframe Container -->
+  <div class="iframe-container">
+    <iframe src="https://drive.google.com/file/d/1jMfWWhOZwjog1_VEllrh4NhRdEW7B_jC/preview" 
+            width="600" height="400" frameborder="0" allow="autoplay" 
+            sandbox="allow-scripts allow-same-origin"></iframe>
   </div>
 
   <script>
-    // Get elements
-    const pauseBtn = document.getElementById("pause-btn");
-    const volumeBtn = document.getElementById("volume-btn");
-    const audioPlayer = document.getElementById("audio-player");
-    const audioTitle = document.getElementById("audio-title");
-    const audioSelect = document.getElementById("audio-select");
-    const toggleBgBtn = document.getElementById("toggle-bg-btn");
+    // Get the movie title element and the select dropdown
+    const movieTitle = document.getElementById('movie-title');
+    const positionSelect = document.getElementById('position-select');
 
-    let isPlaying = false;
-    let isBackgroundVisible = true; // Track whether the background image is visible
+    // Function to update the position of the title based on selection
+    positionSelect.addEventListener('change', function() {
+      const position = positionSelect.value;
 
-    // 30 different color combinations
-    const colors = [
-      "#ff0000", "#ff4500", "#ff6347", "#ff7f50", "#ff8c00",
-      "#ffa500", "#ffb6c1", "#ff1493", "#f08080", "#f4a460",
-      "#cd5c5c", "#dc143c", "#d2691e", "#b22222", "#800000",
-      "#8b0000", "#ffff00", "#9acd32", "#228b22", "#006400",
-      "#32cd32", "#98fb98", "#8a2be2", "#9370db", "#8b008b",
-      "#4b0082", "#6a5acd", "#4169e1", "#0000ff", "#0000cd"
-    ];
+      // Reset the position
+      movieTitle.style.top = ''; 
+      movieTitle.style.bottom = '';
+      movieTitle.style.left = '';
+      movieTitle.style.right = '';
+      movieTitle.style.transform = '';
 
-    // Function to change background color based on the current time of the audio
-    function changeBackgroundColor() {
-      const audioTime = audioPlayer.currentTime;
-      const colorIndex = Math.floor(audioTime) % colors.length; // Loop through colors based on audio time
-      document.body.style.backgroundColor = colors[colorIndex];
-    }
-
-    // Function to play the selected audio
-    function playAudio() {
-      const selectedAudio = audioSelect.value;
-      const selectedText = audioSelect.options[audioSelect.selectedIndex].text; // Get the text of the selected option
-
-      // Update the source of the audio player based on the selected audio
-      audioPlayer.src = selectedAudio;
-
-      // Show the audio panel
-      document.getElementById("audio-panel").style.display = "block";
-
-      // Play the audio
-      audioPlayer.play();
-
-      // Update the title to show the selected audio file name
-      audioTitle.innerText = selectedText;
-
-      // Start changing the background color
-      if (!isPlaying) {
-        isPlaying = true;
-        setInterval(changeBackgroundColor, 100); // Change color every 100ms
-      }
-    }
-
-    // Function to stop changing background color
-    function stopChangingBackgroundColor() {
-      clearInterval(colorInterval); // Stop color change
-      document.body.style.backgroundColor = ''; // Reset background color to default
-    }
-
-    // Event listener for when an audio file is selected
-    audioSelect.addEventListener("change", function() {
-      // Play the selected audio automatically when the dropdown value changes
-      playAudio();
-    });
-
-    // Handle Pause Button Click
-    pauseBtn.addEventListener("click", function() {
-      // Pause the audio
-      audioPlayer.pause();
-      audioTitle.innerText = "Audio Paused"; // Update the title
-
-      // Stop the background color change
-      stopChangingBackgroundColor();
-    });
-
-    // Handle Volume Button Click (Toggle Mute)
-    volumeBtn.addEventListener("click", function() {
-      // Toggle mute
-      audioPlayer.muted = !audioPlayer.muted;
-      volumeBtn.innerText = audioPlayer.muted ? "Unmute" : "Mute"; // Toggle button text
-    });
-
-    // Toggle background image visibility when the button is clicked
-    toggleBgBtn.addEventListener("click", function() {
-      isBackgroundVisible = !isBackgroundVisible;
-      if (isBackgroundVisible) {
-        document.body.style.backgroundImage = "url('https://www.w3schools.com/w3images/forestbridge.jpg')"; // Set the background image
-      } else {
-        document.body.style.backgroundImage = "none"; // Remove the background image
+      // Set the title position based on the selected value
+      if (position === 'top') {
+        movieTitle.style.top = '-20px'; /* Move title further up */
+        movieTitle.style.left = '50%';
+        movieTitle.style.transform = 'translateX(-50%)';
+      } else if (position === 'bottom') {
+        movieTitle.style.bottom = '20px';
+        movieTitle.style.left = '50%';
+        movieTitle.style.transform = 'translateX(-50%)';
+      } else if (position === 'left') {
+        movieTitle.style.left = '20px';
+        movieTitle.style.top = '50%';
+        movieTitle.style.transform = 'translateY(-50%)';
+      } else if (position === 'right') {
+        movieTitle.style.right = '20px';
+        movieTitle.style.top = '50%';
+        movieTitle.style.transform = 'translateY(-50%)';
       }
     });
-
-    // Initialize the player with the default audio
-    playAudio();
   </script>
 
 </body>
