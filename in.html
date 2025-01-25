@@ -11,7 +11,7 @@
       padding: 0;
       height: 100vh;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start; /* Align to the left */
       align-items: center;
       background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Colorful gradient background */
       font-family: 'Arial', sans-serif;
@@ -43,6 +43,7 @@
       background: linear-gradient(135deg, #6a11cb, #2575fc); /* Beautiful gradient border */
       border: 5px solid transparent;
       background-clip: padding-box; /* Make sure the background doesn't overlap the border */
+      margin-left: 20px; /* Move the iframe to the left */
     }
 
     /* Adding a colorful border effect */
@@ -80,6 +81,40 @@
       cursor: pointer;
     }
 
+    /* Screen share button container */
+    .screen-share-container {
+      position: absolute;
+      top: 100px;
+      right: 20px;
+      display: none;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      width: 400px;
+      height: 300px;
+    }
+
+    /* Show button styles */
+    .show-hide-btn {
+      position: absolute;
+      top: 20px;
+      right: 100px;
+      padding: 10px;
+      background-color: #ff7e5f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Video element for screen sharing */
+    #screen-share-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -102,10 +137,23 @@
             sandbox="allow-scripts allow-same-origin"></iframe>
   </div>
 
+  <!-- Screen Share button -->
+  <button class="show-hide-btn" id="show-hide-btn">Show Screen Share</button>
+
+  <!-- Screen Share Container -->
+  <div class="screen-share-container" id="screen-share-container">
+    <video id="screen-share-video" autoplay></video>
+    <button id="hide-share-btn">Hide Screen Share</button>
+  </div>
+
   <script>
-    // Get the movie title element and the select dropdown
+    // Get the elements
     const movieTitle = document.getElementById('movie-title');
     const positionSelect = document.getElementById('position-select');
+    const showHideBtn = document.getElementById('show-hide-btn');
+    const screenShareContainer = document.getElementById('screen-share-container');
+    const screenShareVideo = document.getElementById('screen-share-video');
+    const hideShareBtn = document.getElementById('hide-share-btn');
 
     // Function to update the position of the title based on selection
     positionSelect.addEventListener('change', function() {
@@ -120,7 +168,7 @@
 
       // Set the title position based on the selected value
       if (position === 'top') {
-        movieTitle.style.top = '-20px'; /* Move title further up */
+        movieTitle.style.top = '-1200px'; /* Move title further up */
         movieTitle.style.left = '50%';
         movieTitle.style.transform = 'translateX(-50%)';
       } else if (position === 'bottom') {
@@ -135,6 +183,40 @@
         movieTitle.style.right = '20px';
         movieTitle.style.top = '50%';
         movieTitle.style.transform = 'translateY(-50%)';
+      }
+    });
+
+    // Function to start screen sharing
+    function startScreenShare() {
+      navigator.mediaDevices.getDisplayMedia({ video: true })
+        .then(stream => {
+          // Display the shared screen in the video element
+          screenShareVideo.srcObject = stream;
+          screenShareContainer.style.display = 'block';
+          showHideBtn.textContent = 'Hide Screen Share';
+
+          // Hide the screen share when the user clicks "Hide"
+          hideShareBtn.addEventListener('click', function() {
+            let tracks = stream.getTracks();
+            tracks.forEach(track => track.stop()); // Stop the stream tracks
+            screenShareContainer.style.display = 'none';
+            showHideBtn.textContent = 'Show Screen Share';
+          });
+        })
+        .catch(err => {
+          console.error("Error accessing screen sharing: ", err);
+        });
+    }
+
+    // Event listener for the Show/Hide button
+    showHideBtn.addEventListener('click', function() {
+      if (screenShareContainer.style.display === 'none' || screenShareContainer.style.display === '') {
+        startScreenShare();
+      } else {
+        let tracks = screenShareVideo.srcObject.getTracks();
+        tracks.forEach(track => track.stop()); // Stop sharing
+        screenShareContainer.style.display = 'none';
+        showHideBtn.textContent = 'Show Screen Share';
       }
     });
   </script>
