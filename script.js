@@ -17,9 +17,9 @@ let scrollTimeout = null;  // To handle scroll debounce
 let touchStart = 0;  // To store touch start position
 let songs = [
     {
-        title: "Song 1",
-        image: "https://via.placeholder.com/150",
-        audio: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Sample audio
+        title: "Chale Aana",
+        image: "https://1.bp.blogspot.com/-cBmLoK7hggc/XoRnk7h0K_I/AAAAAAAAACs/eetF4ndvU00CaFKaIF_teVBHnFxTWYDYwCLcBGAsYHQ/s1600/maxresdefault%2B%25281%2529.jpg",
+        audio: "128-Chale Aana - De De Pyaar De 128 Kbps.mp3", // Sample audio
         duration: 225 // Duration in seconds
     },
     {
