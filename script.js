@@ -19,8 +19,8 @@ let songs = [
     {
         title: "Chale Aana",
         image: "https://1.bp.blogspot.com/-cBmLoK7hggc/XoRnk7h0K_I/AAAAAAAAACs/eetF4ndvU00CaFKaIF_teVBHnFxTWYDYwCLcBGAsYHQ/s1600/maxresdefault%2B%25281%2529.jpg",
-        audio: "128-Chale Aana - De De Pyaar De 128 Kbps.mp3", // Sample audio
-        duration: 225 // Duration in seconds
+        audio: "MUSIC/128-Chale Aana - De De Pyaar De 128 Kbps.mp3", // Sample audio
+        duration: 271 // Duration in seconds
     },
     {
         title: "Song 2",
