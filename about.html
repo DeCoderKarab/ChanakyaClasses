@@ -11,9 +11,9 @@
       padding: 0;
       height: 100vh;
       display: flex;
-      justify-content: flex-start; /* Align to the left */
+      justify-content: center;
       align-items: center;
-      background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Colorful gradient background */
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
       font-family: 'Arial', sans-serif;
       position: relative;
     }
@@ -24,48 +24,38 @@
       font-weight: 700;
       color: #fff;
       text-align: center;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Text shadow for premium look */
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
       position: absolute;
-      top: 20px; /* Positioned at the top of the page */
+      top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10; /* Ensure the title is above the video */
-      animation: colorChange 5s infinite alternate; /* Animation for color change */
+      z-index: 10;
+      animation: colorChange 5s infinite alternate;
     }
 
     /* Animation for color changing */
     @keyframes colorChange {
-      0% {
-        color: #ff7e5f;
-      }
-      25% {
-        color: #feb47b;
-      }
-      50% {
-        color: #6a11cb;
-      }
-      75% {
-        color: #2575fc;
-      }
-      100% {
-        color: #ff4b2b;
-      }
+      0% { color: #ff7e5f; }
+      25% { color: #feb47b; }
+      50% { color: #6a11cb; }
+      75% { color: #2575fc; }
+      100% { color: #ff4b2b; }
     }
 
     /* Styling the iframe container */
     .iframe-container {
-      width: 1000px;
-      height: 600px;
+      width: 900px;  
+      height: 500px; 
       border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Subtle shadow for premium look */
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
       overflow: hidden;
-      background: linear-gradient(135deg, #6a11cb, #2575fc); /* Beautiful gradient border */
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
       border: 5px solid transparent;
-      background-clip: padding-box; /* Make sure the background doesn't overlap the border */
-      margin-left: 20px; /* Move the iframe to the left */
+      background-clip: padding-box;
+      margin: 20px;
+      position: relative;
     }
 
-    /* Adding a colorful border effect */
     .iframe-container::before {
       content: '';
       position: absolute;
@@ -73,12 +63,11 @@
       left: -5px;
       right: -5px;
       bottom: -5px;
-      background: linear-gradient(45deg, #ff6a00, #ffcc00, #ff4b2b, #b039f4); /* Gradient border */
+      background: linear-gradient(45deg, #ff6a00, #ffcc00, #ff4b2b, #b039f4);
       z-index: -1;
       border-radius: 15px;
     }
 
-    /* Styling for the iframe */
     iframe {
       width: 100%;
       height: 100%;
@@ -86,11 +75,11 @@
       border-radius: 10px;
     }
 
-    /* Select dropdown to choose video */
+    /* Select dropdown styling */
     .position-select {
       position: absolute;
       top: 20px;
-      right: 20px;
+      left: 20px;
       padding: 10px;
       font-size: 1rem;
       background-color: #fff;
@@ -98,12 +87,27 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       cursor: pointer;
-      z-index: 20; /* Ensure the dropdown is above other elements */
+      z-index: 20;
     }
 
-    /* Language dropdown */
-    .position-select {
-      top: 60px; /* Adjusted position for language select */
+    /* Full-Screen Button */
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background-color: #ff7e5f;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background-color: #feb47b;
     }
 
     /* Screen share button container */
@@ -120,26 +124,53 @@
       height: 300px;
     }
 
-    /* Show button styles */
-    .show-hide-btn {
-      position: absolute;
-      top: 20px;
-      right: 100px;
-      padding: 10px;
-      background-color: #ff7e5f;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    /* Video element for screen sharing */
     #screen-share-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 5px;
     }
+
+    /* Advertisement styling */
+    .advertisement {
+      position: absolute;
+      top: 50%;  /* Center vertically */
+      left: 20px;
+      transform: translateY(-50%);  /* Adjust for perfect center */
+      width: 250px;
+      height: 400px;
+      background-color: #2d2d2d;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      z-index: 15;
+      overflow: hidden;
+    }
+
+    .advertisement img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .advertisement-text {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      background-color: #ff7e5f;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
   </style>
 </head>
 <body>
@@ -148,14 +179,7 @@
     <option value="video1">Hasi ban gaye</option>
     <option value="video2">MONEY HEIST S1 E1</option>
     <option value="video3">MONEY HEIST S1 E2</option>
-    <option value="video4">MONEY HEIST S1 E3</option>
-  </select>
-
-  <!-- Language dropdown to change video audio -->
-  <select id="language-select" class="position-select">
-    <option value="english">English</option>
-    <option value="hindi">Hindi</option>
-    <option value="spanish">Spanish</option>
+    <option value="video4">Mrs. MOVIE</option>
   </select>
 
   <!-- Movie Title -->
@@ -168,10 +192,19 @@
             sandbox="allow-scripts allow-same-origin"></iframe>
   </div>
 
+  <!-- Full-Screen Button -->
+  <button class="fullscreen-btn" id="fullscreen-btn">Full Screen</button>
+
   <!-- Screen Share Container -->
   <div class="screen-share-container" id="screen-share-container">
     <video id="screen-share-video" autoplay></video>
     <button id="hide-share-btn">Hide Screen Share</button>
+  </div>
+
+  <!-- Advertisement Banner -->
+  <div class="advertisement" id="advertisement">
+    <img src="https://i.gadgets360cdn.com/large/image_1_F_1737539260962.jpg" alt="Latest Release" />
+    <div class="advertisement-text" id="advertisement-text">Latest Release (Mrs. MOVIE)</div>
   </div>
 
   <script>
@@ -182,87 +215,61 @@
     const screenShareContainer = document.getElementById('screen-share-container');
     const screenShareVideo = document.getElementById('screen-share-video');
     const hideShareBtn = document.getElementById('hide-share-btn');
-    const languageSelect = document.getElementById('language-select');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const advertisement = document.getElementById('advertisement');
+    const advertisementText = document.getElementById('advertisement-text');
 
-    // Define video URLs and titles for each option in different languages
+    // Define video URLs and titles for each option
     const videoData = {
-      english: {
-        video1: {
-          url: 'https://drive.google.com/file/d/1t5q1lDA6NUy9qQYzs5yQmZOdN-Cf7B1D/preview',
-          title: 'Hasi ban gaye'
-        },
-        video2: {
-          url: 'https://drive.google.com/file/d/1uV2F8GklZd56aDFO7CI2GhSmtpSD_TBS/preview',
-          title: 'MONEY HEIST S1 E1'
-        },
-        video3: {
-          url: 'https://drive.google.com/file/d/1uYQHVFxBfP7Wk3-ZcyDczl0kGgrQINau/preview',
-          title: 'MONEY HEIST S1 E2'
-        },
-        video4: {
-          url: 'https://drive.google.com/file/d/1wrBHQfo_Sr0JjTgGG0O8dWpx3YnVcdsH/preview',
-          title: 'MONEY HEIST S1 E3'
-        }
+      video1: {
+        url: 'https://drive.google.com/file/d/1t5q1lDA6NUy9qQYzs5yQmZOdN-Cf7B1D/preview',
+        title: 'Hasi ban gaye'
       },
-      hindi: {
-        video1: {
-          url: 'https://drive.google.com/file/d/1t5q1lDA6NUy9qQYzs5yQmZOdN-Cf7B1D/preview', // Replace with Hindi version URL
-          title: 'Hasi ban gaye (Hindi)'
-        },
-        video2: {
-          url: 'https://drive.google.com/file/d/1tUTlBkC3qus_SVRmLufPrB-nM0okgdLA/preview', // Replace with Hindi version URL
-          title: 'MONEY HEIST S1 E1 (Hindi)'
-        },
-        video3: {
-          url: 'https://drive.google.com/file/d/1tXPX7Ls78H9dAcqXbzGaYBRnRqLFZEOL/preview', // Replace with Hindi version URL
-          title: 'MONEY HEIST S1 E2 (Hindi)'
-        }
+      video2: {
+        url: 'https://drive.google.com/file/d/1uV2F8GklZd56aDFO7CI2GhSmtpSD_TBS/preview',
+        title: 'MONEY HEIST S1 E1'
       },
-      spanish: {
-        video1: {
-          url: 'https://drive.google.com/file/d/1t5q1lDA6NUy9qQYzs5yQmZOdN-Cf7B1D/preview', // Replace with Spanish version URL
-          title: 'Hasi ban gaye (Spanish)'
-        },
-        video2: {
-          url: 'https://drive.google.com/file/d/1tUTlBkC3qus_SVRmLufPrB-nM0okgdLA/preview', // Replace with Spanish version URL
-          title: 'MONEY HEIST S1 E1 (Spanish)'
-        },
-        video3: {
-          url: 'https://drive.google.com/file/d/1tXPX7Ls78H9dAcqXbzGaYBRnRqLFZEOL/preview', // Replace with Spanish version URL
-          title: 'MONEY HEIST S1 E2 (Spanish)'
-        }
+      video3: {
+        url: 'https://drive.google.com/file/d/1uYQHVFxBfP7Wk3-ZcyDczl0kGgrQINau/preview',
+        title: 'MONEY HEIST S1 E2'
+      },
+      video4: {
+        url: 'https://drive.google.com/file/d/15LGnosczFlit4K3miiABsMKmGcGSad4S/preview',
+        title: 'Mrs. MOVIE'
       }
     };
 
     // Function to change the video source based on selection and update the title
     videoSelect.addEventListener('change', function() {
-      const selectedLanguage = languageSelect.value;
       const selectedVideo = videoSelect.value;
-      movieIframe.src = videoData[selectedLanguage][selectedVideo].url;
-      movieTitle.textContent = videoData[selectedLanguage][selectedVideo].title;
+      movieIframe.src = videoData[selectedVideo].url;
+      movieTitle.textContent = videoData[selectedVideo].title;
     });
 
-    // Handle language change
-    languageSelect.addEventListener('change', function() {
-      const selectedLanguage = languageSelect.value;
-      const selectedVideo = videoSelect.value;
-      movieIframe.src = videoData[selectedLanguage][selectedVideo].url;
-      movieTitle.textContent = videoData[selectedLanguage][selectedVideo].title;
+    // Full-screen toggle
+    fullscreenBtn.addEventListener('click', function() {
+      if (movieIframe.requestFullscreen) {
+        movieIframe.requestFullscreen();
+      } else if (movieIframe.mozRequestFullScreen) { // Firefox
+        movieIframe.mozRequestFullScreen();
+      } else if (movieIframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        movieIframe.webkitRequestFullscreen();
+      } else if (movieIframe.msRequestFullscreen) { // IE/Edge
+        movieIframe.msRequestFullscreen();
+      }
     });
 
     // Function to start screen sharing
     function startScreenShare() {
       navigator.mediaDevices.getDisplayMedia({ video: true })
         .then(stream => {
-          // Display the shared screen in the video element
           screenShareVideo.srcObject = stream;
           screenShareContainer.style.display = 'block';
           hideShareBtn.textContent = 'Hide Screen Share';
 
-          // Hide the screen share when the user clicks "Hide"
           hideShareBtn.addEventListener('click', function() {
             let tracks = stream.getTracks();
-            tracks.forEach(track => track.stop()); // Stop the stream tracks
+            tracks.forEach(track => track.stop()); 
             screenShareContainer.style.display = 'none';
             hideShareBtn.textContent = 'Show Screen Share';
           });
@@ -272,16 +279,11 @@
         });
     }
 
-    // Event listener for the Show/Hide button
-    document.getElementById('show-hide-btn').addEventListener('click', function() {
-      if (screenShareContainer.style.display === 'none' || screenShareContainer.style.display === '') {
-        startScreenShare();
-      } else {
-        let tracks = screenShareVideo.srcObject.getTracks();
-        tracks.forEach(track => track.stop()); // Stop sharing
-        screenShareContainer.style.display = 'none';
-        hideShareBtn.textContent = 'Show Screen Share';
-      }
+    // Advertisement click event to hide the ad window
+    advertisement.addEventListener('click', function() {
+      advertisement.style.display = 'none';  // Hide the advertisement window when clicked
+      movieIframe.src = videoData.video4.url; // Change video to MONEY HEIST S1 E3
+      movieTitle.textContent = videoData.video4.title;
     });
   </script>
 </body>
