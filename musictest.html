@@ -1,0 +1,2150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aura Music</title>
+
+<style>
+:root{
+  --bg:#090a0f;
+  --card:rgba(255,255,255,.08);
+  --accent:#00f2fe;
+  --accent-glow:rgba(0,242,254,.6);
+  --text:#fff;
+  --subtext:#aaa;
+  --font:'Segoe UI',Roboto,Arial,sans-serif;
+}
+
+[data-theme="universe"]{--bg:#030014;--accent:#9d4edd;--accent-glow:rgba(157,78,221,.7)}
+[data-theme="romantic"]{--bg:#1a000c;--accent:#ff2a6d;--accent-glow:rgba(255,42,109,.7)}
+[data-theme="cartoonic"]{--bg:#1f1900;--accent:#ffbe0b;--accent-glow:rgba(255,190,11,.7)}
+[data-theme="cyberpunk"]{--bg:#050510;--accent:#f706cf;--accent-glow:rgba(247,6,207,.7)}
+[data-theme="emerald"]{--bg:#01170d;--accent:#00ff87;--accent-glow:rgba(0,255,135,.7)}
+[data-theme="sunset"]{--bg:#1a0800;--accent:#ff758c;--accent-glow:rgba(255,117,140,.7)}
+[data-theme="ocean"]{--bg:#011018;--accent:#00c6ff;--accent-glow:rgba(0,198,255,.7)}
+[data-theme="neon-purple"]{--bg:#0f001e;--accent:#b000ff;--accent-glow:rgba(176,0,255,.7)}
+[data-theme="fire"]{--bg:#140200;--accent:#ff4500;--accent-glow:rgba(255,69,0,.7)}
+[data-theme="midnight"]{--bg:#010105;--accent:#3a7bd5;--accent-glow:rgba(58,123,213,.7)}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  background:#000;
+  font-family:var(--font);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.app-container{
+  width:100%;
+  max-width:420px;
+  height:100vh;
+  max-height:880px;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 50px var(--accent-glow);
+  transition:.5s;
+}
+
+@media(min-width:480px){
+  .app-container{
+    height:92vh;
+    border-radius:35px;
+    border:2px solid rgba(255,255,255,.15);
+  }
+}
+
+#bg-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+}
+
+.content-layer{
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+/* SPLASH */
+
+#splash-screen{
+  position:absolute;
+  inset:0;
+  background:var(--bg);
+  z-index:100;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  transition:.8s;
+}
+
+.logo-container{
+  width:130px;
+  height:130px;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.logo-ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:4px solid transparent;
+  border-top-color:var(--accent);
+  border-bottom-color:var(--accent);
+  animation:spin 2s linear infinite;
+  box-shadow:0 0 30px var(--accent-glow);
+}
+
+.logo-icon{
+  font-size:55px;
+  animation:pulse 1.5s ease-in-out infinite alternate;
+}
+
+.splash-title{
+  margin-top:25px;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:3px;
+}
+
+.splash-progress{
+  width:160px;
+  height:4px;
+  background:rgba(255,255,255,.1);
+  margin-top:30px;
+  border-radius:3px;
+  overflow:hidden;
+}
+
+.splash-bar{
+  height:100%;
+  width:0;
+  background:var(--accent);
+  animation:load 5s linear forwards;
+}
+
+/* MAIN VIEWS */
+
+.main-view{
+  flex:1;
+  min-height:0;
+  position:relative;
+}
+
+.view-container{
+  height:100%;
+  overflow-y:auto;
+  padding:20px;
+  padding-bottom:110px;
+  display:none;
+  scrollbar-width:none;
+}
+
+.view-container::-webkit-scrollbar{
+  display:none;
+}
+
+.view-container.active{
+  display:block;
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.header h2{
+  font-size:22px;
+}
+
+.theme-select-btn{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  backdrop-filter:blur(12px);
+}
+
+/* HOME */
+
+.home-heading{
+  margin-bottom:20px;
+}
+
+.home-heading h1{
+  font-size:28px;
+  margin-bottom:5px;
+}
+
+.home-heading p{
+  color:var(--subtext);
+  font-size:13px;
+}
+
+.section-title{
+  font-size:16px;
+  margin:25px 0 12px;
+}
+
+/* CATEGORY GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.category-card{
+  background:var(--card);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.category-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 25px var(--accent-glow);
+  border-color:var(--accent);
+}
+
+.category-icon{
+  font-size:40px;
+}
+
+.category-name{
+  font-size:14px;
+  font-weight:600;
+}
+
+/* SONGS */
+
+.back-btn{
+  background:none;
+  border:none;
+  color:var(--accent);
+  font-size:15px;
+  cursor:pointer;
+  margin-bottom:15px;
+  font-weight:700;
+}
+
+.song-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:12px 15px;
+  border-radius:14px;
+  background:var(--card);
+  backdrop-filter:blur(10px);
+  margin-bottom:10px;
+  border:1px solid rgba(255,255,255,.05);
+  cursor:pointer;
+}
+
+.song-item:active{
+  transform:scale(.97);
+}
+
+.song-img{
+  width:48px;
+  height:48px;
+  border-radius:10px;
+  object-fit:cover;
+  background:rgba(0,0,0,.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+}
+
+.song-info{
+  flex:1;
+  overflow:hidden;
+}
+
+.song-title{
+  font-size:14px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.song-artist{
+  font-size:12px;
+  color:var(--subtext);
+  margin-top:2px;
+}
+
+/* LATEST */
+
+.latest-intro{
+  background:linear-gradient(
+    135deg,
+    rgba(157,78,221,.25),
+    rgba(0,242,254,.08)
+  );
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:20px;
+}
+
+.latest-intro h1{
+  font-size:25px;
+  margin-bottom:7px;
+}
+
+.latest-intro p{
+  color:var(--subtext);
+  font-size:13px;
+  line-height:1.5;
+}
+
+.update-card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  backdrop-filter:blur(12px);
+  transition:.25s;
+}
+
+.update-card:hover{
+  border-color:var(--accent);
+  box-shadow:0 8px 25px var(--accent-glow);
+}
+
+.update-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.update-icon{
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  background:rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px;
+}
+
+.update-info{
+  flex:1;
+}
+
+.update-title{
+  font-size:15px;
+  font-weight:700;
+}
+
+.update-date{
+  font-size:11px;
+  color:var(--subtext);
+  margin-top:3px;
+}
+
+.update-description{
+  color:#ccc;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.update-badge{
+  display:inline-block;
+  margin-top:12px;
+  padding:5px 9px;
+  border-radius:10px;
+  font-size:10px;
+  font-weight:700;
+  background:var(--accent);
+  color:#000;
+}
+
+/* MINI PLAYER */
+
+.mini-player{
+  position:absolute;
+  bottom:64px;
+  left:0;
+  right:0;
+  height:68px;
+  background:rgba(10,10,15,.9);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:12px;
+  transform:translateY(120%);
+  transition:.4s;
+  z-index:20;
+  cursor:pointer;
+}
+
+.mini-player.visible{
+  transform:translateY(0);
+}
+
+.mini-img{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  object-fit:cover;
+  background:rgba(255,255,255,.05);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px;
+}
+
+.mini-info{
+  flex:1;
+  overflow:hidden;
+}
+
+.mini-title{
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-artist{
+  font-size:11px;
+  color:var(--subtext);
+}
+
+.mini-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:22px;
+}
+
+/* BOTTOM NAVIGATION */
+
+.bottom-nav{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  height:64px;
+  background:rgba(5,5,10,.92);
+  backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.12);
+  display:flex;
+  z-index:25;
+}
+
+.nav-btn{
+  flex:1;
+  border:none;
+  background:none;
+  color:var(--subtext);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.nav-icon{
+  font-size:21px;
+}
+
+.nav-btn.active{
+  color:var(--accent);
+  text-shadow:0 0 10px var(--accent-glow);
+}
+
+/* FULL PLAYER */
+
+.full-player{
+  position:absolute;
+  inset:0;
+  background:var(--bg);
+  z-index:50;
+  display:flex;
+  flex-direction:column;
+  padding:30px 20px;
+  transform:translateY(100%);
+  transition:.4s;
+}
+
+.full-player.active{
+  transform:translateY(0);
+}
+
+.full-nav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.close-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:26px;
+}
+
+.media-toggle-container{
+  display:flex;
+  justify-content:center;
+  margin-top:15px;
+}
+
+.media-toggle{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:20px;
+  display:flex;
+  padding:3px;
+}
+
+.toggle-opt{
+  padding:6px 16px;
+  border-radius:16px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--subtext);
+}
+
+.toggle-opt.active{
+  background:var(--accent);
+  color:#000;
+}
+
+.album-art-container{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:15px 0;
+}
+
+.album-art,
+.video-art{
+  width:240px;
+  height:240px;
+  border-radius:30px;
+  background:var(--card);
+  object-fit:cover;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:90px;
+  box-shadow:0 15px 35px var(--accent-glow);
+  border:2px solid var(--accent);
+}
+
+.video-art{
+  display:none;
+  background:#000;
+}
+
+.track-details{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.track-title{
+  font-size:22px;
+  font-weight:700;
+}
+
+.track-artist{
+  font-size:14px;
+  color:var(--subtext);
+  margin-top:6px;
+}
+
+.progress-container{
+  margin-bottom:25px;
+}
+
+.slider{
+  width:100%;
+  height:6px;
+  appearance:none;
+  border-radius:6px;
+  background:rgba(255,255,255,.15);
+}
+
+.slider::-webkit-slider-thumb{
+  appearance:none;
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+}
+
+.time-stamps{
+  display:flex;
+  justify-content:space-between;
+  color:var(--subtext);
+  font-size:12px;
+  margin-top:6px;
+}
+
+.controls{
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+
+.control-btn{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:26px;
+}
+
+.play-btn-main{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#000;
+  border:none;
+  font-size:26px;
+  box-shadow:0 0 25px var(--accent-glow);
+}
+
+/* THEME MODAL */
+
+.modal{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  backdrop-filter:blur(15px);
+  z-index:90;
+  display:none;
+  flex-direction:column;
+  padding:30px 20px;
+}
+
+.modal.active{
+  display:flex;
+}
+
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  overflow-y:auto;
+}
+
+.theme-card{
+  padding:14px;
+  border-radius:12px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:#fff;
+  text-align:center;
+  font-size:13px;
+  font-weight:600;
+}
+
+/* ANIMATION */
+
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+
+@keyframes pulse{
+  from{transform:scale(.9);opacity:.8}
+  to{transform:scale(1.1);opacity:1}
+}
+
+@keyframes load{
+  from{width:0}
+  to{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-container" id="app">
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="content-layer">
+
+<!-- SPLASH -->
+<div id="splash-screen">
+  <div class="logo-container">
+    <div class="logo-ring"></div>
+    <div class="logo-icon">🎵</div>
+  </div>
+
+  <div class="splash-title">AURA MUSIC</div>
+
+  <div class="splash-progress">
+    <div class="splash-bar"></div>
+  </div>
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="main-view">
+
+<!-- HOME -->
+<div id="view-home" class="view-container active">
+
+  <div class="header">
+    <div class="home-heading">
+      <h1>Welcome to Aura</h1>
+      <p>Your music, your mood, your aura.</p>
+    </div>
+
+    <button class="theme-select-btn" onclick="openThemeModal()">🎨</button>
+  </div>
+
+  <div class="section-title">🎵 Music Categories</div>
+
+  <div class="grid" id="category-grid"></div>
+
+</div>
+
+
+<!-- SONGS -->
+<div id="view-songs" class="view-container">
+
+  <button class="back-btn" onclick="showHome()">← Home</button>
+
+  <div class="header">
+    <h2 id="category-title">Songs</h2>
+  </div>
+
+  <div id="song-list"></div>
+
+</div>
+
+
+<!-- LATEST -->
+<div id="view-latest" class="view-container">
+
+  <div class="header">
+    <h2>Latest Updates</h2>
+  </div>
+
+  <div class="latest-intro">
+    <h1>✨ What's New?</h1>
+    <p>
+      Stay updated with the latest music, new releases,
+      Aura Music improvements and announcements.
+    </p>
+  </div>
+
+  <div id="latest-list"></div>
+
+</div>
+
+</div>
+
+
+<!-- MINI PLAYER -->
+<div class="mini-player"
+     id="mini-player"
+     onclick="openFullPlayer()">
+
+  <img
+    class="mini-img"
+    id="mini-icon"
+    src=""
+    alt="cover"
+    style="display:none"
+  >
+
+  <div
+    class="mini-img"
+    id="mini-fallback-icon"
+  >
+    🎵
+  </div>
+
+  <div class="mini-info">
+    <div class="mini-title" id="mini-title">
+      Not Playing
+    </div>
+
+    <div class="mini-artist" id="mini-artist">
+      Select a song
+    </div>
+  </div>
+
+  <button
+    class="mini-btn"
+    onclick="event.stopPropagation();togglePlay()"
+    id="mini-play-btn">
+    ▶
+  </button>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+
+  <button
+    class="nav-btn active"
+    id="nav-home"
+    onclick="switchMainTab('home')">
+
+    <span class="nav-icon">🏠</span>
+    <span>Home</span>
+
+  </button>
+
+  <button
+    class="nav-btn"
+    id="nav-latest"
+    onclick="switchMainTab('latest')">
+
+    <span class="nav-icon">✨</span>
+    <span>Latest</span>
+
+  </button>
+
+</div>
+
+
+<!-- FULL PLAYER -->
+<div class="full-player" id="full-player">
+
+  <div class="full-nav">
+
+    <button
+      class="close-btn"
+      onclick="closeFullPlayer()">
+      ↓
+    </button>
+
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px">
+      NOW PLAYING
+    </div>
+
+    <button
+      class="theme-select-btn"
+      onclick="openThemeModal()">
+      🎨
+    </button>
+
+  </div>
+
+
+  <div class="media-toggle-container">
+
+    <div class="media-toggle">
+
+      <div
+        class="toggle-opt active"
+        id="opt-audio"
+        onclick="switchMediaType('audio')">
+        🎵 Audio
+      </div>
+
+      <div
+        class="toggle-opt"
+        id="opt-video"
+        onclick="switchMediaType('video')">
+        🎬 Video
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="album-art-container">
+
+    <img
+      class="album-art"
+      id="full-art-img"
+      src=""
+      alt="Album Art"
+      style="display:none"
+    >
+
+    <div
+      class="album-art"
+      id="full-art-fallback">
+      🎵
+    </div>
+
+    <video
+      class="video-art"
+      id="full-video"
+      loop
+      playsinline
+      muted>
+    </video>
+
+  </div>
+
+
+  <div class="track-details">
+
+    <div
+      class="track-title"
+      id="full-title">
+      Song Title
+    </div>
+
+    <div
+      class="track-artist"
+      id="full-artist">
+      Artist Name
+    </div>
+
+  </div>
+
+
+  <div class="progress-container">
+
+    <input
+      type="range"
+      class="slider"
+      id="progress-bar"
+      value="0"
+      min="0"
+      max="100"
+      oninput="seekTrack(this.value)"
+    >
+
+    <div class="time-stamps">
+
+      <span id="current-time">0:00</span>
+      <span id="duration">0:00</span>
+
+    </div>
+
+  </div>
+
+
+  <div class="controls">
+
+    <button
+      class="control-btn"
+      onclick="prevSong()">
+      ⏮
+    </button>
+
+    <button
+      class="play-btn-main"
+      id="full-play-btn"
+      onclick="togglePlay()">
+      ▶
+    </button>
+
+    <button
+      class="control-btn"
+      onclick="nextSong()">
+      ⏭
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- THEME MODAL -->
+<div class="modal" id="theme-modal">
+
+  <div class="modal-header">
+
+    <h3>Select Theme</h3>
+
+    <button
+      class="close-btn"
+      onclick="closeThemeModal()">
+      ✕
+    </button>
+
+  </div>
+
+  <div
+    class="theme-grid"
+    id="theme-grid">
+  </div>
+
+</div>
+
+</div>
+</div>
+
+
+<audio
+  id="audio-engine"
+  preload="auto">
+</audio>
+
+
+<script>
+
+/* =========================
+   CATEGORIES
+========================= */
+
+const categories = [
+
+  {id:'pop',name:'Pop Hits',icon:'🎤'},
+
+  {id:'romantic',name:'Romantic',icon:'💖'},
+
+  {id:'universe',name:'Space & Cosmic',icon:'🌌'},
+
+  {id:'lofi',name:'Lo-Fi Chill',icon:'☕'},
+
+  {id:'rock',name:'Rock Beats',icon:'🎸'},
+
+  {id:'electronic',name:'EDM Pulse',icon:'⚡'}
+
+];
+
+
+/* =========================
+   SONG DATABASE
+========================= */
+
+const songs = [
+
+{
+  id:1,
+  category:'pop',
+  title:'Aaj se teri',
+  artist:'Arijit Singh',
+  album:'Padman',
+  thumbnailUrl:'IMAGES/Aaj se teri.jpg',
+  audioUrl:'MUSIC/128-Aaj Se Teri - Padman 128 Kbps.mp3',
+  videoUrl:'https://drive.google.com/file/d/15yhoDheuSvgpvKBnElASTqex3VFWRWJ1/preview',
+  defaultMedia:'audio'
+},
+
+{
+  id:2,
+  category:'romantic',
+  title:'Hal e dil',
+  artist:'Harshit Saxena',
+  album:'Murder 2',
+  thumbnailUrl:'IMAGES/hal e dil.jpg',
+  audioUrl:'MUSIC/128-Hale Dil - Murder 2 128 Kbps.mp3',
+  videoUrl:'https://drive.google.com/file/d/15yhoDheuSvgpvKBnElASTqex3VFWRWJ1/preview',
+  defaultMedia:'audio'
+},
+
+{
+  id:3,
+  category:'romantic',
+  title:'Love Ambient',
+  artist:'Sweet Melodies',
+  album:'Romantic Chill',
+  thumbnailUrl:'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500',
+  audioUrl:'https://www.bensound.com/bensound-music/bensound-love.mp3',
+  videoUrl:'https://assets.mixkit.co/videos/preview/mixkit-hands-holding-a-glowing-heart-42848-large.mp4',
+  defaultMedia:'audio'
+},
+
+{
+  id:4,
+  category:'universe',
+  title:'Deep Space Void',
+  artist:'Galaxy Beats',
+  album:'Cosmic Journey',
+  thumbnailUrl:'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500',
+  audioUrl:'https://www.bensound.com/bensound-music/bensound-scifi.mp3',
+  videoUrl:'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-background-1610-large.mp4',
+  defaultMedia:'video'
+}
+
+];
+
+
+/* =========================
+   LATEST UPDATES
+=========================
+
+   ADD NEW UPDATES HERE.
+*/
+
+const latestUpdates = [
+
+{
+  icon:'🎵',
+  title:'New Music Added',
+  date:'September 7, 2026',
+  description:'New songs have been added to Aura Music. Open Home and explore the latest music categories.',
+  badge:'MUSIC'
+},
+
+{
+  icon:'🚀',
+  title:'Aura Music Update',
+  date:'September 6, 2026',
+  description:'The new Home and Latest navigation is now available for a better music experience.',
+  badge:'UPDATE'
+},
+
+{
+  icon:'✨',
+  title:'New Theme Engine',
+  date:'September 5, 2026',
+  description:'More visual themes are now available. Open the theme button and choose your favorite Aura.',
+  badge:'NEW'
+},
+
+{
+  icon:'🎧',
+  title:'Player Improvements',
+  date:'September 4, 2026',
+  description:'Improved the music player, mini player and playback controls.',
+  badge:'PLAYER'
+}
+
+];
+
+
+/* =========================
+   THEMES
+========================= */
+
+const themes = [
+  'universe',
+  'romantic',
+  'cartoonic',
+  'cyberpunk',
+  'emerald',
+  'sunset',
+  'ocean',
+  'neon-purple',
+  'fire',
+  'midnight'
+];
+
+
+/* =========================
+   STATE
+========================= */
+
+let currentSongIndex=-1;
+let filteredSongs=[];
+let isPlaying=false;
+let currentTheme='universe';
+let currentMediaType='audio';
+
+const audio=document.getElementById('audio-engine');
+const video=document.getElementById('full-video');
+
+
+/* =========================
+   START APP
+========================= */
+
+window.onload=()=>{
+
+  renderCategories();
+
+  renderThemes();
+
+  renderLatest();
+
+  initCanvas();
+
+  setTheme('universe');
+
+  setTimeout(()=>{
+
+    const splash=document.getElementById('splash-screen');
+
+    splash.style.opacity='0';
+
+    setTimeout(()=>{
+      splash.style.display='none';
+    },800);
+
+  },5000);
+
+};
+
+
+/* =========================
+   MAIN NAVIGATION
+========================= */
+
+function switchMainTab(tab){
+
+  const home=document.getElementById('view-home');
+  const latest=document.getElementById('view-latest');
+  const songsView=document.getElementById('view-songs');
+
+  const navHome=document.getElementById('nav-home');
+  const navLatest=document.getElementById('nav-latest');
+
+  songsView.classList.remove('active');
+
+  home.classList.remove('active');
+  latest.classList.remove('active');
+
+  navHome.classList.remove('active');
+  navLatest.classList.remove('active');
+
+  if(tab==='home'){
+
+    home.classList.add('active');
+    navHome.classList.add('active');
+
+  }
+
+  if(tab==='latest'){
+
+    latest.classList.add('active');
+    navLatest.classList.add('active');
+
+  }
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function showHome(){
+
+  switchMainTab('home');
+
+}
+
+
+/* =========================
+   CATEGORY RENDER
+========================= */
+
+function renderCategories(){
+
+  const grid=document.getElementById('category-grid');
+
+  grid.innerHTML=categories.map(cat=>`
+
+    <div
+      class="category-card"
+      onclick="showSongs('${cat.id}','${cat.name}')">
+
+      <div class="category-icon">
+        ${cat.icon}
+      </div>
+
+      <div class="category-name">
+        ${cat.name}
+      </div>
+
+    </div>
+
+  `).join('');
+
+}
+
+
+/* =========================
+   SONG LIST
+========================= */
+
+function showSongs(catId,catName){
+
+  filteredSongs=songs.filter(
+    song=>song.category===catId
+  );
+
+  document.getElementById(
+    'category-title'
+  ).innerText=catName;
+
+  const list=document.getElementById('song-list');
+
+  list.innerHTML=filteredSongs.map(
+    (song,index)=>`
+
+    <div
+      class="song-item"
+      onclick="playSongFromList(${index})">
+
+      ${
+        song.thumbnailUrl
+
+        ?
+
+        `<img
+          class="song-img"
+          src="${song.thumbnailUrl}"
+          alt="cover"
+        >`
+
+        :
+
+        `<div class="song-img">🎵</div>`
+      }
+
+      <div class="song-info">
+
+        <div class="song-title">
+          ${song.title}
+        </div>
+
+        <div class="song-artist">
+          ${song.artist}
+        </div>
+
+      </div>
+
+    </div>
+
+  `).join('');
+
+  document.getElementById('view-home')
+    .classList.remove('active');
+
+  document.getElementById('view-songs')
+    .classList.add('active');
+
+}
+
+
+/* =========================
+   LATEST RENDER
+========================= */
+
+function renderLatest(){
+
+  const list=document.getElementById('latest-list');
+
+  list.innerHTML=latestUpdates.map(update=>`
+
+    <div class="update-card">
+
+      <div class="update-top">
+
+        <div class="update-icon">
+          ${update.icon}
+        </div>
+
+        <div class="update-info">
+
+          <div class="update-title">
+            ${update.title}
+          </div>
+
+          <div class="update-date">
+            ${update.date}
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="update-description">
+        ${update.description}
+      </div>
+
+      <span class="update-badge">
+        ${update.badge}
+      </span>
+
+    </div>
+
+  `).join('');
+
+}
+
+
+/* =========================
+   PLAY SONG
+========================= */
+
+function playSongFromList(index){
+
+  currentSongIndex=index;
+
+  loadAndPlaySong(
+    filteredSongs[currentSongIndex]
+  );
+
+}
+
+
+function loadAndPlaySong(song){
+
+  audio.src=song.audioUrl;
+
+  video.src=song.videoUrl||'';
+
+  currentMediaType=
+    song.defaultMedia||'audio';
+
+  updateMediaDisplay();
+
+  document.getElementById(
+    'mini-title'
+  ).innerText=song.title;
+
+  document.getElementById(
+    'mini-artist'
+  ).innerText=song.artist;
+
+
+  const miniIcon=
+    document.getElementById('mini-icon');
+
+  const fallback=
+    document.getElementById(
+      'mini-fallback-icon'
+    );
+
+
+  if(song.thumbnailUrl){
+
+    miniIcon.src=song.thumbnailUrl;
+
+    miniIcon.style.display='block';
+
+    fallback.style.display='none';
+
+  }else{
+
+    miniIcon.style.display='none';
+
+    fallback.style.display='flex';
+
+  }
+
+
+  document.getElementById(
+    'full-title'
+  ).innerText=song.title;
+
+  document.getElementById(
+    'full-artist'
+  ).innerText=song.artist;
+
+
+  const fullImg=
+    document.getElementById(
+      'full-art-img'
+    );
+
+  const fullFallback=
+    document.getElementById(
+      'full-art-fallback'
+    );
+
+
+  if(song.thumbnailUrl){
+
+    fullImg.src=song.thumbnailUrl;
+
+    fullImg.style.display='block';
+
+    fullFallback.style.display='none';
+
+  }else{
+
+    fullImg.style.display='none';
+
+    fullFallback.style.display='flex';
+
+  }
+
+
+  document.getElementById(
+    'mini-player'
+  ).classList.add('visible');
+
+
+  audio.play().then(()=>{
+
+    isPlaying=true;
+
+    if(
+      currentMediaType==='video' &&
+      song.videoUrl
+    ){
+      video.currentTime=audio.currentTime;
+      video.play();
+    }
+
+    updatePlayButtons();
+
+  }).catch(err=>{
+
+    console.log(
+      'Playback error:',
+      err
+    );
+
+  });
+
+}
+
+
+/* =========================
+   PLAY / PAUSE
+========================= */
+
+function togglePlay(){
+
+  if(!audio.src)return;
+
+  if(isPlaying){
+
+    audio.pause();
+    video.pause();
+
+    isPlaying=false;
+
+  }else{
+
+    audio.play();
+
+    if(currentMediaType==='video'){
+      video.play();
+    }
+
+    isPlaying=true;
+
+  }
+
+  updatePlayButtons();
+
+}
+
+
+function updatePlayButtons(){
+
+  const text=isPlaying?'⏸':'▶';
+
+  document.getElementById(
+    'mini-play-btn'
+  ).innerText=text;
+
+  document.getElementById(
+    'full-play-btn'
+  ).innerText=text;
+
+}
+
+
+/* =========================
+   NEXT / PREVIOUS
+========================= */
+
+function nextSong(){
+
+  if(!filteredSongs.length)return;
+
+  currentSongIndex=
+    (currentSongIndex+1)
+    %filteredSongs.length;
+
+  loadAndPlaySong(
+    filteredSongs[currentSongIndex]
+  );
+
+}
+
+
+function prevSong(){
+
+  if(!filteredSongs.length)return;
+
+  currentSongIndex=
+    (currentSongIndex-1+
+    filteredSongs.length)
+    %filteredSongs.length;
+
+  loadAndPlaySong(
+    filteredSongs[currentSongIndex]
+  );
+
+}
+
+
+/* =========================
+   AUDIO PROGRESS
+========================= */
+
+audio.addEventListener(
+  'timeupdate',
+  ()=>{
+
+    if(!audio.duration)return;
+
+    const percentage=
+      (audio.currentTime/
+      audio.duration)*100;
+
+    document.getElementById(
+      'progress-bar'
+    ).value=percentage;
+
+    document.getElementById(
+      'current-time'
+    ).innerText=
+      formatTime(audio.currentTime);
+
+    document.getElementById(
+      'duration'
+    ).innerText=
+      formatTime(audio.duration);
+
+    if(
+      currentMediaType==='video' &&
+      Math.abs(
+        video.currentTime-
+        audio.currentTime
+      )>.3
+    ){
+
+      video.currentTime=
+        audio.currentTime;
+
+    }
+
+  }
+);
+
+
+audio.addEventListener(
+  'ended',
+  nextSong
+);
+
+
+function seekTrack(value){
+
+  if(!audio.duration)return;
+
+  const time=
+    (value/100)*audio.duration;
+
+  audio.currentTime=time;
+
+  if(currentMediaType==='video'){
+    video.currentTime=time;
+  }
+
+}
+
+
+function formatTime(seconds){
+
+  const minutes=
+    Math.floor(seconds/60);
+
+  const secs=
+    Math.floor(seconds%60);
+
+  return `${minutes}:${secs<10?'0':''}${secs}`;
+
+}
+
+
+/* =========================
+   FULL PLAYER
+========================= */
+
+function openFullPlayer(){
+
+  document.getElementById(
+    'full-player'
+  ).classList.add('active');
+
+}
+
+
+function closeFullPlayer(){
+
+  document.getElementById(
+    'full-player'
+  ).classList.remove('active');
+
+}
+
+
+/* =========================
+   MEDIA TYPE
+========================= */
+
+function switchMediaType(type){
+
+  currentMediaType=type;
+
+  updateMediaDisplay();
+
+  if(isPlaying && type==='video'){
+
+    video.currentTime=
+      audio.currentTime;
+
+    video.play();
+
+  }else{
+
+    video.pause();
+
+  }
+
+}
+
+
+function updateMediaDisplay(){
+
+  const img=
+    document.getElementById(
+      'full-art-img'
+    );
+
+  const fallback=
+    document.getElementById(
+      'full-art-fallback'
+    );
+
+  const videoElement=
+    document.getElementById(
+      'full-video'
+    );
+
+
+  document.getElementById(
+    'opt-audio'
+  ).classList.toggle(
+    'active',
+    currentMediaType==='audio'
+  );
+
+  document.getElementById(
+    'opt-video'
+  ).classList.toggle(
+    'active',
+    currentMediaType==='video'
+  );
+
+
+  if(currentMediaType==='video'){
+
+    img.style.display='none';
+
+    fallback.style.display='none';
+
+    videoElement.style.display='block';
+
+  }else{
+
+    videoElement.style.display='none';
+
+    const song=
+      filteredSongs[currentSongIndex];
+
+    if(song && song.thumbnailUrl){
+
+      img.style.display='block';
+
+    }else{
+
+      fallback.style.display='flex';
+
+    }
+
+  }
+
+}
+
+
+/* =========================
+   THEMES
+========================= */
+
+function renderThemes(){
+
+  const grid=
+    document.getElementById(
+      'theme-grid'
+    );
+
+  grid.innerHTML=
+    themes.map(theme=>`
+
+      <div
+        class="theme-card"
+        onclick="setTheme('${theme}')">
+
+        ${theme
+          .replace('-', ' ')
+          .toUpperCase()}
+
+      </div>
+
+    `).join('');
+
+}
+
+
+function openThemeModal(){
+
+  document.getElementById(
+    'theme-modal'
+  ).classList.add('active');
+
+}
+
+
+function closeThemeModal(){
+
+  document.getElementById(
+    'theme-modal'
+  ).classList.remove('active');
+
+}
+
+
+function setTheme(theme){
+
+  currentTheme=theme;
+
+  document.documentElement
+    .setAttribute(
+      'data-theme',
+      theme
+    );
+
+  closeThemeModal();
+
+  initThemeParticles();
+
+}
+
+
+/* =========================
+   CANVAS
+========================= */
+
+let canvas;
+let ctx;
+let particles=[];
+
+
+function initCanvas(){
+
+  canvas=
+    document.getElementById(
+      'bg-canvas'
+    );
+
+  ctx=canvas.getContext('2d');
+
+  resizeCanvas();
+
+  window.addEventListener(
+    'resize',
+    resizeCanvas
+  );
+
+  requestAnimationFrame(
+    animateCanvas
+  );
+
+}
+
+
+function resizeCanvas(){
+
+  canvas.width=
+    canvas.offsetWidth;
+
+  canvas.height=
+    canvas.offsetHeight;
+
+  initThemeParticles();
+
+}
+
+
+function initThemeParticles(){
+
+  particles=[];
+
+  const w=canvas.width;
+  const h=canvas.height;
+
+
+  if(currentTheme==='universe'){
+
+    for(let i=0;i<60;i++){
+
+      particles.push({
+
+        type:'star',
+
+        x:Math.random()*w,
+
+        y:Math.random()*h,
+
+        radius:Math.random()*1.5,
+
+        alpha:Math.random(),
+
+        speed:Math.random()*.02
+
+      });
+
+    }
+
+    const colors=[
+      '#ff4d6d',
+      '#4cc9f0',
+      '#7209b7',
+      '#f72585'
+    ];
+
+    for(let i=0;i<4;i++){
+
+      particles.push({
+
+        type:'planet',
+
+        x:Math.random()*w,
+
+        y:Math.random()*h,
+
+        radius:8+Math.random()*14,
+
+        color:colors[i],
+
+        vx:(Math.random()-.5)*.4,
+
+        vy:(Math.random()-.5)*.4
+
+      });
+
+    }
+
+  }else{
+
+    for(let i=0;i<12;i++){
+
+      particles.push({
+
+        type:'orb',
+
+        x:Math.random()*w,
+
+        y:Math.random()*h,
+
+        radius:20+Math.random()*30,
+
+        vx:(Math.random()-.5)*.5,
+
+        vy:(Math.random()-.5)*.5
+
+      });
+
+    }
+
+  }
+
+}
+
+
+function animateCanvas(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  const w=canvas.width;
+  const h=canvas.height;
+
+
+  particles.forEach(p=>{
+
+    if(p.type==='star'){
+
+      p.alpha+=p.speed;
+
+      if(
+        p.alpha>1 ||
+        p.alpha<0
+      ){
+        p.speed=-p.speed;
+      }
+
+      ctx.fillStyle=
+        `rgba(255,255,255,${Math.abs(p.alpha)})`;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.radius,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fill();
+
+    }
+
+
+    else if(p.type==='planet'){
+
+      p.x+=p.vx;
+      p.y+=p.vy;
+
+      if(p.x<0||p.x>w)
+        p.vx=-p.vx;
+
+      if(p.y<0||p.y>h)
+        p.vy=-p.vy;
+
+      ctx.save();
+
+      ctx.fillStyle=p.color;
+
+      ctx.shadowBlur=15;
+      ctx.shadowColor=p.color;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.radius,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fill();
+
+      ctx.restore();
+
+    }
+
+
+    else if(p.type==='orb'){
+
+      p.x+=p.vx;
+      p.y+=p.vy;
+
+      if(p.x<0||p.x>w)
+        p.vx=-p.vx;
+
+      if(p.y<0||p.y>h)
+        p.vy=-p.vy;
+
+      const color=
+        getComputedStyle(
+          document.documentElement
+        )
+        .getPropertyValue(
+          '--accent'
+        )
+        .trim();
+
+      ctx.save();
+
+      ctx.fillStyle=
+        color||'#00f2fe';
+
+      ctx.globalAlpha=.08;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.radius,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fill();
+
+      ctx.restore();
+
+    }
+
+  });
+
+  requestAnimationFrame(
+    animateCanvas
+  );
+
+}
+
+</script>
+
+</body>
+</html>
+
